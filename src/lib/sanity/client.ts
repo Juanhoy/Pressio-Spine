@@ -10,7 +10,7 @@ const client = createClient({
   projectId: sanitizedProjectId,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
   apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? "2024-01-01",
-  token: process.env.SANITY_API_READ_TOKEN,
+  token: process.env.SANITY_API_READ_TOKEN === "your-read-token" ? undefined : process.env.SANITY_API_READ_TOKEN,
   useCdn: process.env.NODE_ENV === "production",
 });
 
