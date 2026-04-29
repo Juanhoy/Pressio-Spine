@@ -85,6 +85,7 @@ function ProductCard({ product }: { product: Product }) {
             fill
             style={{ objectFit: "cover" }}
             sizes="(max-width: 640px) 100vw, 33vw"
+            unoptimized
           />
         </div>
       )}

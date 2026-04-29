@@ -89,6 +89,7 @@ export default async function ProductDetailPage({
                 priority
                 style={{ objectFit: "cover" }}
                 sizes="100vw"
+                unoptimized
               />
             </div>
           </div>
