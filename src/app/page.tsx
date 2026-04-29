@@ -4,6 +4,8 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { HOME_QUERY } from "@/lib/sanity/queries";
 import type { HomePage } from "@/types/sanity";
 
+export const dynamic = "force-dynamic";
+
 // ── Hero video – served from Cloudinary ────────────────────────────────────────
 // Update this URL in Sanity (homePage.heroVideoUrl) or change the constant below.
 const HERO_VIDEO_URL =

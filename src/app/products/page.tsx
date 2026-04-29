@@ -12,11 +12,12 @@ export const metadata: Metadata = {
     "Explore Pressio Spine™ implant systems — available products and those in development.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage() {
   const products = await sanityFetch<Product[]>(PRODUCTS_QUERY)
     .catch(() => [] as Product[]);
-
-  const available   = products.filter((p) => p.status === "available");
+  const available = products.filter((p) => p.status === "available");
   const development = products.filter((p) => p.status === "in-development");
 
   return (
