@@ -1,5 +1,5 @@
 // ─── Portable Text image helper ────────────────────────────────────────────────
-import createImageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { sanityClient } from "./client";
 
 const builder = createImageUrlBuilder(sanityClient);
