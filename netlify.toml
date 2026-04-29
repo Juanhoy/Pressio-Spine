@@ -1,0 +1,36 @@
+# Netlify build configuration for Pressio Spine™
+
+[build]
+  command   = "npm run build"
+  publish   = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Next.js on Netlify requires the @netlify/plugin-nextjs plugin
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# ── Redirect rules ─────────────────────────────────────────────────────────────
+# Studio access (protect in production via Netlify Identity or IP allowlist)
+[[redirects]]
+  from   = "/studio"
+  to     = "/studio/[[...tool]]"
+  status = 200
+
+# Catch-all for Next.js dynamic routes
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── Security headers ────────────────────────────────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options           = "DENY"
+    X-Content-Type-Options    = "nosniff"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+    Permissions-Policy        = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy   = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.hubspot.com *.hsforms.com *.googletagmanager.com static.hotjar.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: res.cloudinary.com cdn.sanity.io; connect-src 'self' *.sanity.io api.hsforms.com *.google-analytics.com;"
