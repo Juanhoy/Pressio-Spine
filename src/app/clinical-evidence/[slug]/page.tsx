@@ -60,6 +60,23 @@ export default async function ClinicalEvidenceItemPage({
               {doc.authors.join(", ")}
             </p>
           )}
+
+          {doc.files && doc.files.length > 0 && (
+            <div style={{ marginTop: "var(--space-6)", display: "flex", gap: "var(--space-4)", flexWrap: "wrap" }}>
+              {doc.files.map((f, i) => (
+                <a
+                  key={i}
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--accent"
+                  id={`ce-download-${i}`}
+                >
+                  Download: {f.title || "PDF Document"}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

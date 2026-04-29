@@ -142,6 +142,31 @@ export default async function ProductDetailPage({
         </section>
       )}
 
+      {/* Surgical Technique */}
+      {product.surgicalTechnique && product.surgicalTechnique.length > 0 && (
+        <section className="section" aria-labelledby="product-st">
+          <div className="container">
+            <h2 id="product-st" className="heading-md" style={{ marginBottom: "var(--space-6)" }}>
+              Surgical Technique
+            </h2>
+            <div style={{ display: "flex", gap: "var(--space-4)", flexWrap: "wrap" }}>
+              {product.surgicalTechnique.map((st, i) => (
+                <a
+                  key={i}
+                  href={st.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn--secondary"
+                  id={`st-download-${i}`}
+                >
+                  Download: {st.title || "Surgical Technique"}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Related Clinical Evidence */}
       {product.clinicalEvidence && product.clinicalEvidence.length > 0 && (
         <section className="section section--dark" aria-labelledby="product-clinical-evidence">

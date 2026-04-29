@@ -7,6 +7,20 @@ export const clinicalEvidence = defineType({
   type: "document",
   fields: [
     defineField({ name: "title",       title: "Title",       type: "string",   validation: (R) => R.required() }),
+    defineField({
+      name: "files",
+      title: "PDF Documents",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "title", title: "Document Title", type: "string" },
+            { name: "file",  title: "PDF File",       type: "file", options: { accept: ".pdf" } }
+          ]
+        }
+      ]
+    }),
     defineField({ name: "slug",        title: "Slug",        type: "slug",     options: { source: "title" }, validation: (R) => R.required() }),
     defineField({ name: "category",    title: "Category",    type: "string",   options: { list: [{ title: "Clinical Summary", value: "clinical-summary" }, { title: "Publication", value: "publication" }, { title: "White Paper", value: "white-paper" }] }, validation: (R) => R.required() }),
     defineField({ name: "summary",     title: "Summary",     type: "text",     validation: (R) => R.required() }),

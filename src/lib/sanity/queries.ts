@@ -34,10 +34,10 @@ export const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0]{
   description,
   keyFeatures[],
   indications[],
-  surgicalTechnique,
+  surgicalTechnique[]{ title, "url": file.asset->url },
   clinicalEvidence[]->{_id, title, "slug": slug.current},
-  ifu,
-  brochure
+  "ifu": ifu.asset->url,
+  "brochure": brochure.asset->url
 }`;
 
 // Clinical Evidence list
@@ -63,6 +63,7 @@ export const CLINICAL_EVIDENCE_ITEM_QUERY = `*[_type == "clinicalEvidence" && sl
   journal,
   authors[],
   heroImage,
+  files[]{ title, "url": file.asset->url },
   relatedProducts[]->{_id, name, "slug": slug.current}
 }`;
 

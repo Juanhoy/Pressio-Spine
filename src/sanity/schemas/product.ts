@@ -17,10 +17,33 @@ export const product = defineType({
     defineField({ name: "description", title: "Description", type: "text" }),
     defineField({ name: "keyFeatures", title: "Key Features", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "indications", title: "Indications", type: "array", of: [{ type: "string" }] }),
-    defineField({ name: "surgicalTechnique", title: "Surgical Technique", type: "text" }),
+    defineField({
+      name: "surgicalTechnique",
+      title: "Surgical Technique Documents",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "title", title: "Document Title", type: "string" },
+            { name: "file",  title: "PDF File",       type: "file", options: { accept: ".pdf" } }
+          ]
+        }
+      ]
+    }),
     defineField({ name: "clinicalEvidence", title: "Clinical Evidence", type: "array", of: [{ type: "reference", to: [{ type: "clinicalEvidence" }] }] }),
-    defineField({ name: "ifu",      title: "IFU PDF URL",      type: "url" }),
-    defineField({ name: "brochure", title: "Brochure PDF URL", type: "url" }),
+    defineField({
+      name: "ifu",
+      title: "Instructions for Use (IFU)",
+      type: "file",
+      options: { accept: ".pdf" },
+    }),
+    defineField({
+      name: "brochure",
+      title: "Product Brochure",
+      type: "file",
+      options: { accept: ".pdf" },
+    }),
   ],
   preview: { select: { title: "name", subtitle: "status", media: "heroImage" } },
 });
