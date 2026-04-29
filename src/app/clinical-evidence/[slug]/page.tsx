@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { CLINICAL_EVIDENCE_ITEM_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { ClinicalEvidence } from "@/types/sanity";
 
 export async function generateStaticParams() {
-  const docs = await sanityClient
-    .fetch<Pick<ClinicalEvidence, "slug">[]>(`*[_type == "clinicalEvidence"]{ "slug": slug.current }`)
-    .catch(() => []);
+  const docs = await sanityFetch<Pick<ClinicalEvidence, "slug">[]>(
+    `*[_type == "clinicalEvidence"]{ "slug": slug.current }`
+  ).catch(() => []);
   return docs.map((d) => ({ slug: d.slug }));
 }
 
@@ -20,9 +20,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const doc = await sanityClient
-    .fetch<ClinicalEvidence>(CLINICAL_EVIDENCE_ITEM_QUERY, { slug })
-    .catch(() => null);
+  const doc = await sanityFetch<ClinicalEvidence>(CLINICAL_EVIDENCE_ITEM_QUERY, {
+    slug,
+  }).catch(() => null);
   if (!doc) return { title: "Document Not Found" };
   return { title: doc.title, description: doc.summary };
 }
@@ -33,9 +33,9 @@ export default async function ClinicalEvidenceItemPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const doc = await sanityClient
-    .fetch<ClinicalEvidence>(CLINICAL_EVIDENCE_ITEM_QUERY, { slug })
-    .catch(() => null);
+  const doc = await sanityFetch<ClinicalEvidence>(CLINICAL_EVIDENCE_ITEM_QUERY, {
+    slug,
+  }).catch(() => null);
 
   if (!doc) notFound();
 

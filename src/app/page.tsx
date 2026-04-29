@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { HOME_QUERY } from "@/lib/sanity/queries";
 import type { HomePage } from "@/types/sanity";
 
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const data = await sanityClient.fetch<HomePage>(HOME_QUERY).catch(() => null);
+  const data = await sanityFetch<HomePage>(HOME_QUERY).catch(() => null);
 
   // Use Sanity value when available, fall back to the hardcoded Cloudinary URL
   const heroVideoUrl = data?.heroVideoUrl ?? HERO_VIDEO_URL;

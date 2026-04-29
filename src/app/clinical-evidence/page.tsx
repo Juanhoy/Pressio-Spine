@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { CLINICAL_EVIDENCE_QUERY } from "@/lib/sanity/queries";
 import type { ClinicalEvidence } from "@/types/sanity";
 
@@ -24,8 +24,7 @@ export default async function ClinicalEvidencePage({
 }) {
   const { type } = await searchParams;
 
-  const allDocs = await sanityClient
-    .fetch<ClinicalEvidence[]>(CLINICAL_EVIDENCE_QUERY)
+  const allDocs = await sanityFetch<ClinicalEvidence[]>(CLINICAL_EVIDENCE_QUERY)
     .catch(() => [] as ClinicalEvidence[]);
 
   const docs = type && type !== "all"

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { NEWS_POST_QUERY } from "@/lib/sanity/queries";
 import type { NewsPost } from "@/types/sanity";
 
 export async function generateStaticParams() {
-  const posts = await sanityClient
-    .fetch<Pick<NewsPost, "slug">[]>(`*[_type == "newsPost"]{ "slug": slug.current }`)
-    .catch(() => []);
+  const posts = await sanityFetch<Pick<NewsPost, "slug">[]>(
+    `*[_type == "newsPost"]{ "slug": slug.current }`
+  ).catch(() => []);
   return posts.map((p) => ({ slug: p.slug }));
 }
 
@@ -18,9 +18,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await sanityClient
-    .fetch<NewsPost>(NEWS_POST_QUERY, { slug })
-    .catch(() => null);
+  const post = await sanityFetch<NewsPost>(NEWS_POST_QUERY, { slug }).catch(() => null);
   if (!post) return { title: "Post Not Found" };
   return { title: post.title, description: post.excerpt };
 }
@@ -31,9 +29,7 @@ export default async function NewsPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await sanityClient
-    .fetch<NewsPost>(NEWS_POST_QUERY, { slug })
-    .catch(() => null);
+  const post = await sanityFetch<NewsPost>(NEWS_POST_QUERY, { slug }).catch(() => null);
 
   if (!post) notFound();
 

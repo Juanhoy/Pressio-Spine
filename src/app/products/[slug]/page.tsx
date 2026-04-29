@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { PRODUCT_QUERY, PRODUCTS_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { Product } from "@/types/sanity";
 
 // ── Static params ─────────────────────────────────────────────────────────────
 export async function generateStaticParams() {
-  const products = await sanityClient
-    .fetch<Pick<Product, "slug">[]>(`*[_type == "product"]{ "slug": slug.current }`)
-    .catch(() => []);
+  const products = await sanityFetch<Pick<Product, "slug">[]>(
+    `*[_type == "product"]{ "slug": slug.current }`
+  ).catch(() => []);
   return products.map((p) => ({ slug: p.slug }));
 }
 
@@ -22,9 +22,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = await sanityClient
-    .fetch<Product>(PRODUCT_QUERY, { slug })
-    .catch(() => null);
+  const product = await sanityFetch<Product>(PRODUCT_QUERY, { slug }).catch(() => null);
   if (!product) return { title: "Product Not Found" };
   return {
     title: product.name,
@@ -46,9 +44,7 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await sanityClient
-    .fetch<Product>(PRODUCT_QUERY, { slug })
-    .catch(() => null);
+  const product = await sanityFetch<Product>(PRODUCT_QUERY, { slug }).catch(() => null);
 
   if (!product) notFound();
 

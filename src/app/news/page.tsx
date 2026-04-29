@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { NEWS_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { NewsPost } from "@/types/sanity";
@@ -13,8 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function NewsPage() {
-  const posts = await sanityClient
-    .fetch<NewsPost[]>(NEWS_QUERY)
+  const posts = await sanityFetch<NewsPost[]>(NEWS_QUERY)
     .catch(() => [] as NewsPost[]);
 
   return (

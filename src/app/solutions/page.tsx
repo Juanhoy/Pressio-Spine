@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { SOLUTIONS_QUERY } from "@/lib/sanity/queries";
 import type { SolutionsPage } from "@/types/sanity";
 
@@ -17,8 +17,7 @@ const AUDIENCES = [
 ];
 
 export default async function SolutionsPage() {
-  const data = await sanityClient
-    .fetch<SolutionsPage>(SOLUTIONS_QUERY)
+  const data = await sanityFetch<SolutionsPage>(SOLUTIONS_QUERY)
     .catch(() => null);
 
   return (

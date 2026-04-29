@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { PRODUCTS_QUERY } from "@/lib/sanity/queries";
 import type { Product } from "@/types/sanity";
 import { urlFor } from "@/lib/sanity/image";
@@ -13,8 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProductsPage() {
-  const products = await sanityClient
-    .fetch<Product[]>(PRODUCTS_QUERY)
+  const products = await sanityFetch<Product[]>(PRODUCTS_QUERY)
     .catch(() => [] as Product[]);
 
   const available   = products.filter((p) => p.status === "available");

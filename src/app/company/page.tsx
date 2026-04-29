@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { sanityClient } from "@/lib/sanity/client";
+import { sanityFetch } from "@/lib/sanity/client";
 import { COMPANY_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { CompanyPage, TeamMember } from "@/types/sanity";
@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CompanyPageRoute() {
-  const data = await sanityClient
-    .fetch<CompanyPage>(COMPANY_QUERY)
+  const data = await sanityFetch<CompanyPage>(COMPANY_QUERY)
     .catch(() => null);
 
   return (
