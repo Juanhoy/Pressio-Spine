@@ -22,15 +22,16 @@ export default async function SolutionsPage() {
 
   return (
     <>
-      <section className="page-hero" aria-labelledby="solutions-page-heading">
-        <div className="container">
-          <p className="overline">Who We Serve</p>
-          <h1 id="solutions-page-heading" className="heading-xl" style={{ color: "var(--color-white)", marginTop: "var(--space-3)" }}>
-            Solutions
-          </h1>
-          <p className="body-lg" style={{ color: "rgba(255,255,255,0.7)", marginTop: "var(--space-4)", maxWidth: 520 }}>
-            From the OR to the boardroom — we support every stakeholder in the spinal ecosystem.
-          </p>
+      <section className="hero-new" style={{ minHeight: "400px" }} aria-labelledby="solutions-page-heading">
+        <div className="hero-overlay-new" style={{ background: "linear-gradient(105deg, rgba(37, 59, 128, 0.95) 0%, rgba(0, 71, 171, 0.8) 100%)" }} />
+        <div className="hero-inner-new" style={{ padding: "100px 40px" }}>
+          <div className="hero-content-new">
+            <span className="section-label-new" style={{ color: "var(--secondary)" }}>Who We Serve</span>
+            <h1 id="solutions-page-heading" style={{ color: "white", marginBottom: "20px" }}>Solutions</h1>
+            <p className="hero-sub-new" style={{ maxWidth: "520px" }}>
+              From the OR to the boardroom — we support every stakeholder in the spinal ecosystem with advanced nitinol technology.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -41,30 +42,43 @@ export default async function SolutionsPage() {
           <section
             key={id}
             id={id}
-            className={`section${isEven ? "" : " section--gray"}`}
+            className="section-new"
+            style={!isEven ? { background: "var(--neutral)" } : {}}
             aria-labelledby={`solutions-${id}-heading`}
           >
-            <div className="container">
-              <div className="grid-2" style={{ alignItems: "center", gap: "var(--space-16)" }}>
+            <div className="section-inner-new">
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "60px", alignItems: "center" }}>
                 <div style={{ order: isEven ? 0 : 1 }}>
-                  <p className="overline">{emoji} {label}</p>
-                  <h2 id={`solutions-${id}-heading`} className="heading-lg" style={{ marginTop: "var(--space-3)", marginBottom: "var(--space-6)" }}>
+                  <span className="section-label-new">{emoji} {label}</span>
+                  <h2 id={`solutions-${id}-heading`} className="section-title-new" style={{ marginTop: "12px", marginBottom: "24px" }}>
                     {section?.headline ?? label}
                   </h2>
-                  <p className="body-lg" style={{ color: "var(--color-gray-700)", marginBottom: "var(--space-8)" }}>
+                  <p className="section-sub-new" style={{ marginBottom: "32px", maxWidth: "100%" }}>
                     {section?.body ?? "Detailed solution information coming soon."}
                   </p>
                   <Link
                     href={section?.ctaHref ?? "/contact"}
-                    className="btn btn--primary"
+                    className="btn-primary-new"
                     id={`solutions-${id}-cta`}
                   >
-                    {section?.ctaLabel ?? "Learn More"}
+                    {section?.ctaLabel ?? "Contact Specialist"}
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path d="M2 7h10M8 3l4 4-4 4" />
+                    </svg>
                   </Link>
                 </div>
-                {/* Visual placeholder – replace with actual Cloudinary image/video */}
-                <div style={{ order: isEven ? 1 : 0, aspectRatio: "4/3", background: "var(--color-gray-100)", borderRadius: "var(--radius-xl)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "4rem" }}>{emoji}</span>
+                <div style={{ 
+                  order: isEven ? 1 : 0, 
+                  aspectRatio: "16/10", 
+                  background: "#EEF1F6", 
+                  borderRadius: "24px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  boxShadow: "0 10px 40px rgba(0,0,0,0.05)"
+                }}>
+                  <span style={{ fontSize: "5rem" }}>{emoji}</span>
                 </div>
               </div>
             </div>

@@ -29,53 +29,43 @@ export default function Header() {
   if (pathname?.startsWith("/studio")) return null;
 
   return (
-    <header
-      className={`site-header${scrolled ? " site-header--scrolled" : ""}`}
-      role="banner"
-    >
-      <div className="container">
-        <nav className="nav" aria-label="Main navigation">
-          {/* Logo */}
-          <Link href="/" className="nav__logo" aria-label="Pressio Spine home">
-            Pressio Spine™
-          </Link>
+    <header id="site-header" className={`site-header-new${scrolled ? " scrolled" : ""}`}>
+      <div className="nav-inner">
+        <Link href="/" className="logo-new" aria-label="Pressio Spine home">
+          <img src="/img/Brand/PressioSpineLogoMagenta.png" alt="Pressio Spine Logo" />
+        </Link>
 
-          {/* Desktop links */}
-          <ul className="nav__links" role="list">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`nav__link${pathname.startsWith(item.href) ? " nav__link--active" : ""}`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* CTA */}
-          <div className="nav__cta">
-            <Link href="/contact" className="btn btn--accent">
-              Contact Us
+        <nav id="main-nav" className={`nav-new${menuOpen ? " open" : ""}`} role="navigation" aria-label="Main navigation">
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={pathname.startsWith(item.href) ? "active" : ""}
+            >
+              {item.label}
             </Link>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            id="mobile-menu-toggle"
-            className="nav__hamburger"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-            style={{ display: "none" }}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          ))}
+          <Link href="/contact" className="nav-cta-new">
+            Contact
+          </Link>
         </nav>
+
+        <button
+          className="nav-toggle-new"
+          id="navToggle"
+          aria-expanded={menuOpen}
+          aria-controls="main-nav"
+          aria-label="Toggle navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <line x1="3" y1="6" x2="19" y2="6" style={{ display: menuOpen ? "none" : "block" }} />
+            <line x1="3" y1="11" x2="19" y2="11" />
+            <line x1="3" y1="16" x2="19" y2="16" style={{ display: menuOpen ? "none" : "block" }} />
+          </svg>
+        </button>
       </div>
+      
     </header>
   );
 }

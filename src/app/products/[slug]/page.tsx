@@ -50,136 +50,117 @@ export default async function ProductDetailPage({
 
   return (
     <>
-      {/* Hero */}
-      <section className="page-hero" aria-labelledby="product-name">
-        <div className="container">
-          <span className={`badge badge--${product.status === "available" ? "available" : "development"}`}>
-            {product.status === "available" ? "Available" : "In Development"}
-          </span>
-          <h1 id="product-name" className="heading-xl" style={{ color: "var(--color-white)", marginTop: "var(--space-4)" }}>
-            {product.name}
-          </h1>
-          <p className="body-lg" style={{ color: "rgba(255,255,255,0.75)", marginTop: "var(--space-4)", maxWidth: 560 }}>
-            {product.tagline}
-          </p>
-          <div style={{ marginTop: "var(--space-8)", display: "flex", gap: "var(--space-4)" }}>
-            {product.ifu && (
-              <a href={product.ifu} target="_blank" rel="noopener noreferrer" className="btn btn--white" id="product-download-ifu">
-                Download IFU
-              </a>
-            )}
-            {product.brochure && (
-              <a href={product.brochure} target="_blank" rel="noopener noreferrer" className="btn btn--accent" id="product-download-brochure">
-                Product Brochure
-              </a>
-            )}
+      <section className="hero-new" style={{ minHeight: "500px" }} aria-labelledby="product-name">
+        <div className="hero-overlay-new" style={{ background: "linear-gradient(105deg, rgba(37, 59, 128, 0.95) 0%, rgba(0, 71, 171, 0.8) 100%)" }} />
+        <div className="hero-inner-new" style={{ padding: "120px 40px" }}>
+          <div className="hero-content-new">
+            <span className={`product-status-new ${product.status === "available" ? "status-cleared-new" : ""}`} 
+                  style={{ background: product.status === "available" ? "#DBEAFE" : "#FEF3C7", color: product.status === "available" ? "var(--primary)" : "#92400E", marginBottom: "20px" }}>
+              {product.status === "available" ? "FDA 510(k) Cleared" : "In Development"}
+            </span>
+            <h1 id="product-name" style={{ color: "white", marginBottom: "20px" }}>{product.name}</h1>
+            <p className="hero-sub-new" style={{ maxWidth: "560px" }}>{product.tagline}</p>
+            <div style={{ marginTop: "40px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
+              {product.ifu && (
+                <a href={product.ifu} target="_blank" rel="noopener noreferrer" className="btn-primary-new" style={{ background: "white", color: "var(--primary)" }}>
+                  Download IFU
+                </a>
+              )}
+              {product.brochure && (
+                <a href={product.brochure} target="_blank" rel="noopener noreferrer" className="btn-ghost-new">
+                  Product Brochure
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Hero image */}
       {product.heroImage && (
-        <div style={{ background: "var(--color-off-white)" }}>
-          <div className="container" style={{ paddingBlock: "var(--space-12)" }}>
-            <div style={{ position: "relative", aspectRatio: "16/7", borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-lg)" }}>
+        <section className="section-new" style={{ background: "#F8FAFC", paddingTop: 0, marginTop: "-80px", position: "relative", zIndex: 10 }}>
+          <div className="section-inner-new">
+            <div style={{ position: "relative", aspectRatio: "16/7", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 50px rgba(0,0,0,0.15)" }}>
               <Image
-                src={urlFor(product.heroImage).width(1280).height(560).url()}
+                src={urlFor(product.heroImage).width(1600).height(700).url()}
                 alt={product.heroImage.alt ?? product.name}
                 fill
                 priority
                 style={{ objectFit: "cover" }}
-                sizes="100vw"
                 unoptimized
               />
             </div>
           </div>
-        </div>
+        </section>
       )}
 
-      {/* Description + Key Features */}
-      <section className="section" aria-labelledby="product-overview">
-        <div className="container">
-          <div className="grid-2" style={{ alignItems: "start" }}>
+      <section className="section-new" aria-labelledby="product-overview">
+        <div className="section-inner-new">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "60px", alignItems: "start" }}>
             <div>
-              <h2 id="product-overview" className="heading-md" style={{ marginBottom: "var(--space-6)" }}>
-                Product Overview
-              </h2>
-              <p className="body-lg" style={{ color: "var(--color-gray-700)" }}>
+              <span className="section-label-new">Overview</span>
+              <h2 id="product-overview" className="section-title-new" style={{ marginBottom: "24px" }}>Product Rationale</h2>
+              <p className="section-sub-new" style={{ color: "var(--gray-700)", maxWidth: "100%" }}>
                 {product.description ?? "Full product description coming soon."}
               </p>
             </div>
             {product.keyFeatures && product.keyFeatures.length > 0 && (
-              <div>
-                <h3 className="heading-sm" style={{ marginBottom: "var(--space-6)" }}>Key Features</h3>
-                <ul style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
-                  {product.keyFeatures.map((feat, i) => (
-                    <li key={i} style={{ display: "flex", gap: "var(--space-3)", alignItems: "flex-start" }}>
-                      <span style={{ color: "var(--color-accent)", fontWeight: 700, marginTop: 2 }}>✓</span>
-                      <span className="body-base">{feat}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="why-card-new" style={{ background: "var(--neutral)", borderColor: "transparent" }}>
+                <div className="why-card-body-new">
+                  <h3 style={{ fontSize: "19px", marginBottom: "24px" }}>Key Features</h3>
+                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
+                    {product.keyFeatures.map((feat, i) => (
+                      <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14px", color: "var(--gray-900)" }}>
+                        <span style={{ color: "var(--secondary)", fontWeight: 800, fontSize: "16px" }}>✓</span>
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Indications */}
       {product.indications && product.indications.length > 0 && (
-        <section className="section section--gray" aria-labelledby="product-indications">
-          <div className="container">
-            <h2 id="product-indications" className="heading-md" style={{ marginBottom: "var(--space-6)" }}>
-              Indications
-            </h2>
-            <ul style={{ columns: 2, gap: "var(--space-8)" }}>
+        <section className="section-new" style={{ background: "var(--neutral)" }} aria-labelledby="product-indications">
+          <div className="section-inner-new">
+            <span className="section-label-new">Clinical Use</span>
+            <h2 id="product-indications" className="section-title-new" style={{ marginBottom: "32px" }}>Indications</h2>
+            <div style={{ columns: 2, columnGap: "60px" }}>
               {product.indications.map((ind, i) => (
-                <li key={i} className="body-base" style={{ marginBottom: "var(--space-3)", breakInside: "avoid" }}>
+                <div key={i} style={{ marginBottom: "16px", paddingLeft: "20px", borderLeft: "2px solid var(--secondary)", fontSize: "14px", color: "var(--gray-600)", breakInside: "avoid" }}>
                   {ind}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {/* Surgical Technique */}
-      {product.surgicalTechnique && product.surgicalTechnique.length > 0 && (
-        <section className="section" aria-labelledby="product-st">
-          <div className="container">
-            <h2 id="product-st" className="heading-md" style={{ marginBottom: "var(--space-6)" }}>
-              Surgical Technique
-            </h2>
-            <div style={{ display: "flex", gap: "var(--space-4)", flexWrap: "wrap" }}>
-              {product.surgicalTechnique.map((st, i) => (
-                <a
-                  key={i}
-                  href={st.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--secondary"
-                  id={`st-download-${i}`}
-                >
-                  Download: {st.title || "Surgical Technique"}
-                </a>
+                </div>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* Related Clinical Evidence */}
       {product.clinicalEvidence && product.clinicalEvidence.length > 0 && (
-        <section className="section section--dark" aria-labelledby="product-clinical-evidence">
-          <div className="container">
-            <h2 id="product-clinical-evidence" className="heading-md" style={{ color: "var(--color-white)", marginBottom: "var(--space-8)" }}>
-              Clinical Evidence
-            </h2>
-            <div className="grid-3">
+        <section className="evidence-section-new" aria-labelledby="product-clinical-evidence">
+          <div className="evidence-inner-new">
+            <div className="evidence-left-new">
+              <span className="section-label-new" style={{ color: "var(--secondary)" }}>Data Qualification</span>
+              <h2 id="product-clinical-evidence" className="section-title-new" style={{ color: "white" }}>Supporting Evidence</h2>
+              <p className="section-sub-new" style={{ color: "rgba(255,255,255,0.7)" }}>
+                Explore the clinical papers and technical reports that validate the design and efficacy of {product.name}.
+              </p>
+            </div>
+            <div className="why-grid-new" style={{ marginTop: 0 }}>
               {product.clinicalEvidence.map((ce) => (
-                <Link key={ce._id} href={`/clinical-evidence/${ce.slug}`} className="card" style={{ padding: "var(--space-6)" }}>
-                  <span className="badge badge--clinical" style={{ marginBottom: "var(--space-3)" }}>Study</span>
-                  <p className="heading-sm">{ce.title}</p>
+                <Link key={ce._id} href={`/clinical-evidence/${ce.slug}`} className="why-card-new" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", textDecoration: "none" }}>
+                  <div className="why-card-body-new">
+                    <span className="product-status-new" style={{ background: "rgba(255,255,255,0.1)", color: "white", marginBottom: "12px" }}>Resource</span>
+                    <h4 style={{ color: "white", fontFamily: "var(--headline)", fontSize: "15px", fontWeight: 700 }}>{ce.title}</h4>
+                    <span style={{ marginTop: "auto", color: "var(--secondary)", fontSize: "13px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
+                      View Study
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <path d="M2 7h10M8 3l4 4-4 4" />
+                      </svg>
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -187,18 +168,23 @@ export default async function ProductDetailPage({
         </section>
       )}
 
-      {/* Contact CTA */}
-      <section className="section" aria-labelledby="product-contact-cta">
-        <div className="container" style={{ textAlign: "center" }}>
-          <h2 id="product-contact-cta" className="heading-md" style={{ marginBottom: "var(--space-4)" }}>
-            Interested in {product.name}?
-          </h2>
-          <p className="body-lg" style={{ color: "var(--color-gray-500)", marginBottom: "var(--space-8)" }}>
-            Connect with our team to request samples, surgical support, or pricing information.
-          </p>
-          <Link href="/contact" className="btn btn--primary" id={`product-${product.slug}-contact-cta`}>
-            Contact Us
-          </Link>
+      <section className="section-new" aria-labelledby="product-contact-cta">
+        <div className="section-inner-new" style={{ textAlign: "center" }}>
+          <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+            <span className="section-label-new">Next Steps</span>
+            <h2 id="product-contact-cta" className="section-title-new" style={{ marginBottom: "20px" }}>
+              Interested in {product.name}?
+            </h2>
+            <p className="section-sub-new" style={{ marginBottom: "40px", marginInline: "auto" }}>
+              Connect with our team to request samples, surgical technique guidance, or clinical consultation.
+            </p>
+            <Link href="/contact" className="btn-primary-new">
+              Contact Sales Specialist
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path d="M2 7h10M8 3l4 4-4 4" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
     </>

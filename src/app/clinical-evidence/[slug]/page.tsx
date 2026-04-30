@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { PortableText } from "next-sanity";
 import { sanityFetch } from "@/lib/sanity/client";
 import { CLINICAL_EVIDENCE_ITEM_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
@@ -89,7 +90,11 @@ export default async function ClinicalEvidenceItemPage({
           )}
 
           {/* Body content from Sanity Portable Text */}
-          {/* TODO: render <PortableText value={doc.body} /> here */}
+          {doc.body && (
+            <div className="portable-text-container">
+              <PortableText value={doc.body} />
+            </div>
+          )}
           {!doc.body && (
             <p className="body-base" style={{ color: "var(--color-gray-500)" }}>
               Full document content coming soon.

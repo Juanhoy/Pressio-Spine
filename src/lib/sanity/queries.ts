@@ -1,15 +1,20 @@
 // ─── GROQ queries for every section of the site ───────────────────────────────
 
 // Home page
-export const HOME_QUERY = `*[_type == "homePage"][0]{
+export const HOME_QUERY = `coalesce(*[_type == "homePage"][0], {}) {
   heroHeadline,
   heroSubheadline,
   heroVideoUrl,
   heroCtaLabel,
   heroCtaHref,
-  productsTeaser[]->{_id, name, tagline, "slug": slug.current, heroImage},
+  heroBadge,
+  "productsTeaser": select(
+    count(productsTeaser) > 0 => productsTeaser[]->{_id, name, tagline, "slug": slug.current, heroImage},
+    true => *[_type == "product"] | order(order asc)[0...4]{_id, name, tagline, "slug": slug.current, heroImage}
+  ),
   clinicalEvidenceTeaser,
-  solutionsTeaserLabel
+  solutionsTeaserLabel,
+  "newsTeaser": *[_type == "newsPost"] | order(publishedAt desc)[0...3]{_id, title, "slug": slug.current, publishedAt, excerpt, heroImage}
 }`;
 
 // Products list

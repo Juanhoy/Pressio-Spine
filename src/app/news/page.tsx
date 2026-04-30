@@ -18,60 +18,71 @@ export default async function NewsPage() {
 
   return (
     <>
-      <section className="page-hero" aria-labelledby="news-page-heading">
-        <div className="container">
-          <p className="overline">Latest Updates</p>
-          <h1 id="news-page-heading" className="heading-xl" style={{ color: "var(--color-white)", marginTop: "var(--space-3)" }}>
-            News & Announcements
-          </h1>
+      <section className="hero-new" style={{ minHeight: "400px" }} aria-labelledby="news-page-heading">
+        <div className="hero-overlay-new" style={{ background: "linear-gradient(105deg, rgba(37, 59, 128, 0.95) 0%, rgba(0, 71, 171, 0.8) 100%)" }} />
+        <div className="hero-inner-new" style={{ padding: "100px 40px" }}>
+          <div className="hero-content-new">
+            <span className="section-label-new" style={{ color: "var(--secondary)" }}>Latest Updates</span>
+            <h1 id="news-page-heading" style={{ color: "white", marginBottom: "20px" }}>News & Announcements</h1>
+            <p className="hero-sub-new" style={{ maxWidth: "520px" }}>
+              Stay updated with the latest technological advancements, clinical milestones, and corporate developments from Pressio Spine.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section" aria-label="News articles">
-        <div className="container">
+      <section className="section-new" aria-label="News articles">
+        <div className="section-inner-new">
           {posts.length > 0 ? (
-            <div className="grid-3">
+            <div className="why-grid-new" style={{ marginTop: "0" }}>
               {posts.map((post) => (
-                <Link
-                  key={post._id}
-                  href={`/news/${post.slug}`}
-                  className="card"
-                  id={`news-card-${post._id}`}
-                >
-                  {post.heroImage && (
-                    <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
+                <article key={post._id} className="product-card-new">
+                  <div className="product-card-img-new" style={{ height: 200, position: "relative" }}>
+                    {post.heroImage ? (
                       <Image
-                        src={urlFor(post.heroImage).width(640).height(360).url()}
+                        src={urlFor(post.heroImage).width(800).height(450).url()}
                         alt={post.heroImage.alt ?? post.title}
                         fill
                         style={{ objectFit: "cover" }}
-                        sizes="(max-width: 640px) 100vw, 33vw"
+                        unoptimized
                       />
-                    </div>
-                  )}
-                  <div style={{ padding: "var(--space-6)" }}>
-                    {post.category && (
-                      <span className="badge badge--clinical" style={{ marginBottom: "var(--space-3)" }}>
-                        {post.category}
-                      </span>
-                    )}
-                    <p className="heading-sm" style={{ marginBottom: "var(--space-2)" }}>{post.title}</p>
-                    {post.excerpt && (
-                      <p className="body-sm" style={{ color: "var(--color-gray-500)" }}>{post.excerpt}</p>
-                    )}
-                    {post.publishedAt && (
-                      <p className="body-sm" style={{ color: "var(--color-gray-300)", marginTop: "var(--space-4)" }}>
-                        {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-                      </p>
+                    ) : (
+                      <div style={{ width: "100%", height: "100%", background: "#EEF1F6" }} />
                     )}
                   </div>
-                </Link>
+                  <div className="product-card-body-new">
+                    <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
+                      {post.category && (
+                        <span className="product-status-new" style={{ background: "#F1F5F9", color: "var(--primary)" }}>
+                          {post.category}
+                        </span>
+                      )}
+                      {post.publishedAt && (
+                        <span style={{ fontSize: "12px", color: "var(--gray-300)", fontFamily: "var(--headline)", marginTop: "4px" }}>
+                          {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                        </span>
+                      )}
+                    </div>
+                    <h3 style={{ fontSize: "18px", marginBottom: "10px" }}>{post.title}</h3>
+                    {post.excerpt && (
+                      <p style={{ fontSize: "13px", lineHeight: "1.6" }}>{post.excerpt}</p>
+                    )}
+                    <Link href={`/news/${post.slug}`} className="product-card-link-new" style={{ marginTop: "auto" }}>
+                      Read Article
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <path d="M2 7h10M8 3l4 4-4 4" />
+                      </svg>
+                    </Link>
+                  </div>
+                </article>
               ))}
             </div>
           ) : (
-            <p className="body-lg" style={{ color: "var(--color-gray-500)" }}>
-              No news articles yet. Check back soon.
-            </p>
+            <div style={{ padding: "80px 0", textAlign: "center", background: "#F8FAFC", borderRadius: "24px" }}>
+              <p className="section-sub-new" style={{ margin: "0 auto" }}>
+                No news articles found. Content will appear here once added in Sanity.
+              </p>
+            </div>
           )}
         </div>
       </section>

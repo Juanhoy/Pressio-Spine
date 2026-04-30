@@ -31,26 +31,37 @@ export default function Footer() {
   const pathname = usePathname();
   if (pathname?.startsWith("/studio")) return null;
   return (
-    <footer className="site-footer" role="contentinfo">
-      <div className="container">
-        <div className="footer__grid">
-          {/* Brand column */}
-          <div>
-            <p className="footer__brand-name">Pressio Spine™</p>
-            <p className="footer__tagline">
-              Advanced spinal implant systems backed by clinical evidence.
-              Engineered for surgeons, designed for patients.
-            </p>
+    <>
+      <div className="reg-bar-new" role="note">
+        <p>
+          <strong>Regulatory notice:</strong> Pipeline products shown on this site are In Development and have not received
+          FDA clearance. They are not available for commercial sale. Clinical data presented on this site is provided with
+          full study qualification, including design, sample size, and applicable limitations. For complete prescribing and
+          indication information, refer to the applicable Instructions for Use (IFU). Rx only. For use by trained healthcare
+          professionals only.
+        </p>
+      </div>
+
+      <footer className="site-footer-new">
+        <div className="footer-main-new">
+          <div className="footer-brand-new">
+            <Link href="/" className="logo-footer-new" aria-label="Pressio Spine home">
+              <img src="/img/Brand/PressioSpineLogoWhite.png" alt="Pressio Spine Logo" style={{ height: 50, marginBottom: 16 }} />
+            </Link>
+            <p>Precision nitinol-based fixation for anterior cervical fusion. Built for the ASC era.</p>
+            <div className="footer-fda-new">
+              CONTINUUM ACDF Nitinol Fixation System: FDA 510(k) Cleared for anterior cervical fixation. For full
+              indications, contraindications, and warnings, see product IFU.
+            </div>
           </div>
 
-          {/* Link columns */}
           {Object.entries(FOOTER_LINKS).map(([title, links]) => (
-            <div key={title}>
-              <p className="footer__col-title">{title}</p>
-              <ul className="footer__links" role="list">
+            <div key={title} className="footer-col-new">
+              <h6>{title}</h6>
+              <ul>
                 {links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="footer__link">
+                    <Link href={link.href}>
                       {link.label}
                     </Link>
                   </li>
@@ -60,19 +71,16 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="footer__bottom">
-          <p>© {new Date().getFullYear()} Pressio Spine™. All rights reserved.</p>
-          <div style={{ display: "flex", gap: "var(--space-6)" }}>
-            <Link href="/privacy-policy" className="footer__link">Privacy Policy</Link>
-            <Link href="/terms"          className="footer__link">Terms of Use</Link>
-            <Link href="/sitemap.xml"    className="footer__link">Sitemap</Link>
+        <div className="footer-bottom-new">
+          <span>© {new Date().getFullYear()} Pressio Spine. All rights reserved. Content subject to regulatory review.</span>
+          <div className="footer-bottom-links-new">
+            <Link href="/privacy-policy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+            <Link href="/cookie-policy">Cookies</Link>
+            <Link href="/sitemap.xml">Sitemap</Link>
           </div>
-          <p style={{ fontSize: "var(--text-xs)", opacity: 0.5 }}>
-            510(k) Pending — Not for sale in the US until clearance received.
-          </p>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

@@ -43,7 +43,7 @@ export interface ClinicalEvidence {
   slug: string;
   category: "clinical-summary" | "white-paper" | "publication";
   summary: string;
-  body?: unknown[]; // Portable Text
+  body?: any[]; // Portable Text
   publishedAt?: string;
   journal?: string;
   authors?: string[];
@@ -60,7 +60,7 @@ export interface NewsPost {
   publishedAt?: string;
   category: string;
   excerpt?: string;
-  body?: unknown[]; // Portable Text
+  body?: any[]; // Portable Text
   heroImage?: SanityImage;
   author?: string;
 }
@@ -88,9 +88,11 @@ export interface HomePage {
   heroVideoUrl?: string;
   heroCtaLabel?: string;
   heroCtaHref?: string;
+  heroBadge?: string;
   productsTeaser?: Product[];
   clinicalEvidenceTeaser?: string;
   solutionsTeaserLabel?: string;
+  newsTeaser?: NewsPost[];
 }
 
 // ── Solutions ─────────────────────────────────────────────────────────────────

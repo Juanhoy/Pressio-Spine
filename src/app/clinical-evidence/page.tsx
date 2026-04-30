@@ -33,37 +33,38 @@ export default async function ClinicalEvidencePage({
 
   return (
     <>
-      {/* Page hero */}
-      <section className="page-hero" aria-labelledby="ce-page-heading">
-        <div className="container">
-          <p className="overline">Data-Driven Surgery</p>
-          <h1 id="ce-page-heading" className="heading-xl" style={{ color: "var(--color-white)", marginTop: "var(--space-3)" }}>
-            Clinical Evidence
-          </h1>
-          <p className="body-lg" style={{ color: "rgba(255,255,255,0.7)", marginTop: "var(--space-4)", maxWidth: 560 }}>
-            Every Pressio Spine™ product is validated by peer-reviewed research,
-            cadaveric studies, and real-world surgical outcomes.
-          </p>
+      <section className="hero-new" style={{ minHeight: "400px" }} aria-labelledby="ce-page-heading">
+        <div className="hero-overlay-new" style={{ background: "linear-gradient(105deg, rgba(37, 59, 128, 0.95) 0%, rgba(0, 71, 171, 0.8) 100%)" }} />
+        <div className="hero-inner-new" style={{ padding: "100px 40px" }}>
+          <div className="hero-content-new">
+            <span className="section-label-new" style={{ color: "var(--secondary)" }}>Data-Driven Surgery</span>
+            <h1 id="ce-page-heading" style={{ color: "white", marginBottom: "20px" }}>Clinical Evidence</h1>
+            <p className="hero-sub-new" style={{ maxWidth: "560px" }}>
+              Every Pressio Spine™ product is validated by peer-reviewed research, cadaveric studies, and real-world surgical outcomes.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Filter tabs */}
-      <div style={{ borderBottom: "1px solid var(--color-gray-100)", background: "var(--color-white)", position: "sticky", top: "var(--header-height)", zIndex: 50 }}>
-        <div className="container" style={{ display: "flex", gap: "var(--space-4)", paddingBlock: "var(--space-4)", overflowX: "auto" }}>
+      <div style={{ borderBottom: "1px solid #E8ECF0", background: "white", position: "sticky", top: "var(--header-height)", zIndex: 50 }}>
+        <div className="section-inner-new" style={{ display: "flex", gap: "12px", padding: "16px 40px", overflowX: "auto" }}>
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.value}
               href={cat.value === "all" ? "/clinical-evidence" : `/clinical-evidence?type=${cat.value}`}
               id={`ce-filter-${cat.value}`}
               style={{
-                padding: "var(--space-2) var(--space-4)",
-                borderRadius: "var(--radius-full)",
+                padding: "8px 20px",
+                borderRadius: "100px",
                 fontWeight: 600,
-                fontSize: "var(--text-sm)",
+                fontSize: "13px",
+                fontFamily: "var(--headline)",
                 whiteSpace: "nowrap",
-                background: (type ?? "all") === cat.value ? "var(--color-sky)" : "var(--color-gray-100)",
-                color: (type ?? "all") === cat.value ? "var(--color-white)" : "var(--color-gray-700)",
-                transition: "all var(--transition-fast)",
+                background: (type ?? "all") === cat.value ? "var(--primary)" : "#F1F5F9",
+                color: (type ?? "all") === cat.value ? "white" : "var(--gray-700)",
+                transition: "all var(--transition)",
+                textDecoration: "none"
               }}
             >
               {cat.label}
@@ -72,43 +73,55 @@ export default async function ClinicalEvidencePage({
         </div>
       </div>
 
-      {/* Docs grid */}
-      <section className="section" aria-labelledby="ce-docs-heading">
-        <div className="container">
-          <h2 id="ce-docs-heading" className="heading-md" style={{ marginBottom: "var(--space-8)" }}>
-            {docs.length} Document{docs.length !== 1 ? "s" : ""}
-          </h2>
+      <section className="section-new" aria-labelledby="ce-docs-heading">
+        <div className="section-inner-new">
+          <div style={{ marginBottom: "40px" }}>
+            <span className="section-label-new">Resources</span>
+            <h2 className="section-title-new" id="ce-docs-heading">
+              {docs.length} Document{docs.length !== 1 ? "s" : ""} Found
+            </h2>
+          </div>
 
           {docs.length > 0 ? (
-            <div className="grid-3">
+            <div className="why-grid-new" style={{ marginTop: "0" }}>
               {docs.map((doc) => (
-                <Link key={doc._id} href={`/clinical-evidence/${doc.slug}`} className="card" id={`ce-card-${doc._id}`} style={{ padding: "var(--space-6)" }}>
-                  <span className="badge badge--clinical" style={{ marginBottom: "var(--space-3)" }}>
-                    {CATEGORIES.find((c) => c.value === doc.category)?.label ?? doc.category}
-                  </span>
-                  <p className="heading-sm" style={{ marginBottom: "var(--space-2)" }}>{doc.title}</p>
-                  {doc.journal && (
-                    <p className="body-sm" style={{ color: "var(--color-gray-500)", fontStyle: "italic", marginBottom: "var(--space-2)" }}>
-                      {doc.journal}
-                    </p>
-                  )}
-                  {doc.summary && (
-                    <p className="body-sm" style={{ color: "var(--color-gray-700)" }}>
-                      {doc.summary.substring(0, 120)}…
-                    </p>
-                  )}
-                  {doc.publishedAt && (
-                    <p className="body-sm" style={{ color: "var(--color-gray-300)", marginTop: "var(--space-4)" }}>
-                      {new Date(doc.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long" })}
-                    </p>
-                  )}
+                <Link key={doc._id} href={`/clinical-evidence/${doc.slug}`} className="why-card-new" id={`ce-card-${doc._id}`} style={{ textDecoration: "none" }}>
+                  <div className="why-card-body-new">
+                    <span className="product-status-new" style={{ background: "#F1F5F9", color: "var(--primary)", marginBottom: "16px" }}>
+                      {CATEGORIES.find((c) => c.value === doc.category)?.label ?? doc.category}
+                    </span>
+                    <h3>{doc.title}</h3>
+                    {doc.journal && (
+                      <p style={{ fontStyle: "italic", marginBottom: "12px", color: "var(--gray-400)" }}>
+                        {doc.journal}
+                      </p>
+                    )}
+                    {doc.summary && (
+                      <p>
+                        {doc.summary.substring(0, 140)}…
+                      </p>
+                    )}
+                    <div style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span style={{ fontSize: "12px", color: "var(--gray-300)", fontFamily: "var(--headline)" }}>
+                        {doc.publishedAt ? new Date(doc.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short" }) : "N/A"}
+                      </span>
+                      <span style={{ fontFamily: "var(--headline)", fontSize: "13px", fontWeight: 700, color: "var(--primary)", display: "flex", alignItems: "center", gap: "6px" }}>
+                        Read Case Study
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                          <path d="M2 7h10M8 3l4 4-4 4" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <p className="body-lg" style={{ color: "var(--color-gray-500)" }}>
-              No documents found. Content will appear here once added in Sanity.
-            </p>
+            <div style={{ padding: "80px 0", textAlign: "center", background: "#F8FAFC", borderRadius: "24px" }}>
+              <p className="section-sub-new" style={{ margin: "0 auto" }}>
+                No documents found for this category. Content will appear here once added in Sanity.
+              </p>
+            </div>
           )}
         </div>
       </section>

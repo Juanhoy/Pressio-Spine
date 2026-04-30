@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { PortableText } from "next-sanity";
 import { sanityFetch } from "@/lib/sanity/client";
 import { NEWS_POST_QUERY } from "@/lib/sanity/queries";
 import type { NewsPost } from "@/types/sanity";
@@ -56,7 +57,11 @@ export default async function NewsPostPage({
 
       <article className="section">
         <div className="container" style={{ maxWidth: 760 }}>
-          {/* TODO: render <PortableText value={post.body} /> */}
+          {post.body && (
+            <div className="portable-text-container">
+              <PortableText value={post.body} />
+            </div>
+          )}
           {!post.body && (
             <p className="body-lg" style={{ color: "var(--color-gray-500)" }}>
               Full article content coming soon.
