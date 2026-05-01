@@ -176,10 +176,10 @@ export default async function HomePage() {
               <div className="bucket-hr-new" aria-hidden="true"></div>
             </div>
 
-            <div className="products-grid-new">
+            <div className="pc-list">
               {(data?.productsTeaser ?? []).length > 0 ? (
-                data?.productsTeaser?.map((product) => (
-                  <ProductCard key={product._id} product={product} />
+                data?.productsTeaser?.map((product, i) => (
+                  <ProductCard key={product._id} product={product} index={i} />
                 ))
               ) : (
                 <p className="section-sub-new" style={{ gridColumn: "1 / -1", textAlign: "center", padding: "40px 0" }}>

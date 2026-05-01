@@ -7,38 +7,80 @@ import type { Product } from "@/types/sanity";
 
 interface ProductCardProps {
   product: Product;
+  /** Card index (0-based) – used to alternate image left/right */
+  index?: number;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+  const imageRight = index % 2 !== 0;
+
   return (
-    <article className="product-card-new">
-      <div className="product-card-img-new" style={{ height: 240, position: "relative" }}>
+    <article className={`pc-card ${imageRight ? "pc-card--reverse" : ""}`}>
+      {/* ── Image panel ──────────────────────────────────────────────── */}
+      <div className="pc-img-wrap">
         {product.heroImage ? (
           <Image
-            src={urlFor(product.heroImage).width(800).height(450).url()}
+            src={urlFor(product.heroImage).width(900).height(600).url()}
             alt={product.heroImage.alt ?? product.name}
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "contain", padding: "24px" }}
             unoptimized
           />
         ) : (
-          <div style={{ width: "100%", height: "100%", background: "#EEF1F6" }} />
+          <div className="pc-img-placeholder" />
         )}
       </div>
-      <div className="product-card-body-new">
-        <span className={`product-status-new ${product.status === "available" ? "status-cleared-new" : ""}`} 
-              style={product.status !== "available" && product.status ? { background: "#FEF3C7", color: "#92400E" } : {}}>
-          {product.status === "available" || !product.status ? "FDA 510(k) Cleared" : "In Development"}
+
+      {/* ── Content panel ────────────────────────────────────────────── */}
+      <div className="pc-body">
+        {/* Status badge */}
+        <span className={`pc-badge ${product.status === "available" ? "pc-badge--cleared" : "pc-badge--dev"}`}>
+          {product.status === "available" ? "FDA 510(k) Cleared" : "In Development"}
         </span>
-        <h3>{product.name}</h3>
-        <p>{product.tagline}</p>
-        <Link href={`/products/${product.slug}`} className="product-card-link-new">
-          Technical Specifications & IFU
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <path d="M2 7h10M8 3l4 4-4 4" />
-          </svg>
-        </Link>
+
+        {/* Product name */}
+        <h3 className="pc-name">{product.name}</h3>
+
+        {/* Tagline / subtitle */}
+        {product.tagline && (
+          <p className="pc-tagline">{product.tagline}</p>
+        )}
+
+        {/* Short description */}
+        {product.description && (
+          <p className="pc-desc">{product.description}</p>
+        )}
+
+        {/* Actions */}
+        <div className="pc-actions">
+          {product.brochure ? (
+            <a
+              href={product.brochure}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pc-btn pc-btn--outline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Download Brochure
+            </a>
+          ) : (
+            <span className="pc-btn pc-btn--outline pc-btn--disabled">
+              Download Brochure
+            </span>
+          )}
+          <Link href={`/products/${product.slug}`} className="pc-btn pc-btn--solid">
+            See Detail
+          </Link>
+        </div>
       </div>
+
+      {/* Make the whole card clickable via an invisible overlay link */}
+      <Link
+        href={`/products/${product.slug}`}
+        className="pc-card-overlay"
+        aria-label={`View ${product.name} details`}
+        tabIndex={-1}
+      />
     </article>
   );
 }

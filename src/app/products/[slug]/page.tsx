@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { sanityFetch } from "@/lib/sanity/client";
-import { PRODUCT_QUERY, PRODUCTS_QUERY } from "@/lib/sanity/queries";
+import { PRODUCT_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { Product } from "@/types/sanity";
 
@@ -37,6 +37,67 @@ export async function generateMetadata({
   };
 }
 
+// ── Feature icon SVG paths ─────────────────────────────────────────────────────
+const FEATURE_ICONS = [
+  "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
+  "M13 10V3L4 14h7v7l9-11h-7z",
+  "M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 3H8L6 7h12l-2-4z",
+  "M4 6h16M4 12h16M4 18h16",
+];
+
+// ── Download tile helper ───────────────────────────────────────────────────────
+function DownloadTile({
+  label,
+  href,
+  disabled = false,
+}: {
+  label: string;
+  href?: string | null;
+  disabled?: boolean;
+}) {
+  const inner = (
+    <>
+      <div className="pd-dl-thumb">
+        {/* PDF icon */}
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="9" y1="13" x2="15" y2="13" />
+          <line x1="9" y1="17" x2="15" y2="17" />
+        </svg>
+      </div>
+      <div className="pd-dl-label">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        <span>{label}</span>
+      </div>
+    </>
+  );
+
+  if (href && !disabled) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="pd-dl-tile"
+        aria-label={`Download ${label}`}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <div className="pd-dl-tile pd-dl-tile--disabled" aria-disabled="true">
+      {inner}
+    </div>
+  );
+}
+
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default async function ProductDetailPage({
   params,
@@ -50,86 +111,127 @@ export default async function ProductDetailPage({
 
   return (
     <>
-      <section className="hero-new" style={{ minHeight: "500px" }} aria-labelledby="product-name">
-        <div className="hero-overlay-new" style={{ background: "linear-gradient(105deg, rgba(37, 59, 128, 0.95) 0%, rgba(0, 71, 171, 0.8) 100%)" }} />
-        <div className="hero-inner-new" style={{ padding: "120px 40px" }}>
-          <div className="hero-content-new">
-            <span className={`product-status-new ${product.status === "available" ? "status-cleared-new" : ""}`} 
-                  style={{ background: product.status === "available" ? "#DBEAFE" : "#FEF3C7", color: product.status === "available" ? "var(--primary)" : "#92400E", marginBottom: "20px" }}>
-              {product.status === "available" ? "FDA 510(k) Cleared" : "In Development"}
-            </span>
-            <h1 id="product-name" style={{ color: "white", marginBottom: "20px" }}>{product.name}</h1>
-            <p className="hero-sub-new" style={{ maxWidth: "560px" }}>{product.tagline}</p>
-            <div style={{ marginTop: "40px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
-              {product.ifu && (
-                <a href={product.ifu} target="_blank" rel="noopener noreferrer" className="btn-primary-new" style={{ background: "white", color: "var(--primary)" }}>
-                  Download IFU
-                </a>
-              )}
-              {product.brochure && (
-                <a href={product.brochure} target="_blank" rel="noopener noreferrer" className="btn-ghost-new">
-                  Product Brochure
-                </a>
-              )}
-            </div>
-          </div>
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <section className="pd-hero" aria-labelledby="pd-name">
+        <div className="pd-hero-overlay" />
+        <div className="pd-hero-inner">
+          <h1 id="pd-name" className="pd-hero-title">{product.name}</h1>
+          {product.tagline && (
+            <p className="pd-hero-tagline">{product.tagline}</p>
+          )}
+          {product.description && (
+            <p className="pd-hero-desc">{product.description}</p>
+          )}
         </div>
       </section>
 
-      {product.heroImage && (
-        <section className="section-new" style={{ background: "#F8FAFC", paddingTop: 0, marginTop: "-80px", position: "relative", zIndex: 10 }}>
-          <div className="section-inner-new">
-            <div style={{ position: "relative", aspectRatio: "16/7", borderRadius: "24px", overflow: "hidden", boxShadow: "0 20px 50px rgba(0,0,0,0.15)" }}>
-              <Image
-                src={urlFor(product.heroImage).width(1600).height(700).url()}
-                alt={product.heroImage.alt ?? product.name}
-                fill
-                priority
-                style={{ objectFit: "cover" }}
-                unoptimized
-              />
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="section-new" aria-labelledby="product-overview">
-        <div className="section-inner-new">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "60px", alignItems: "start" }}>
-            <div>
-              <span className="section-label-new">Overview</span>
-              <h2 id="product-overview" className="section-title-new" style={{ marginBottom: "24px" }}>Product Rationale</h2>
-              <p className="section-sub-new" style={{ color: "var(--gray-700)", maxWidth: "100%" }}>
-                {product.description ?? "Full product description coming soon."}
-              </p>
-            </div>
-            {product.keyFeatures && product.keyFeatures.length > 0 && (
-              <div className="why-card-new" style={{ background: "var(--neutral)", borderColor: "transparent" }}>
-                <div className="why-card-body-new">
-                  <h3 style={{ fontSize: "19px", marginBottom: "24px" }}>Key Features</h3>
-                  <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
-                    {product.keyFeatures.map((feat, i) => (
-                      <li key={i} style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14px", color: "var(--gray-900)" }}>
-                        <span style={{ color: "var(--secondary)", fontWeight: 800, fontSize: "16px" }}>✓</span>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+      {/* ── Image + Key Features ─────────────────────────────────────── */}
+      <section className="pd-main-section" aria-labelledby="pd-features-heading">
+        <div className="pd-main-inner">
+          {/* Product image */}
+          <div className="pd-img-col">
+            {product.heroImage ? (
+              <div className="pd-img-wrap">
+                <Image
+                  src={urlFor(product.heroImage).width(700).height(700).url()}
+                  alt={product.heroImage.alt ?? product.name}
+                  fill
+                  priority
+                  style={{ objectFit: "contain" }}
+                  unoptimized
+                />
               </div>
+            ) : (
+              <div className="pd-img-wrap pd-img-placeholder" />
             )}
           </div>
+
+          {/* Key features */}
+          <div className="pd-features-col">
+            <h2 id="pd-features-heading" className="pd-features-heading">Key Features</h2>
+            <ul className="pd-features-list">
+              {(product.keyFeatures && product.keyFeatures.length > 0
+                ? product.keyFeatures
+                : [
+                    "Simplified Procedure",
+                    "Continuous Compression",
+                    "Sterile Single-Use Kits",
+                    "Versatile System",
+                  ]
+              ).map((feat, i) => (
+                <li key={i} className="pd-feature-item">
+                  <div className="pd-feature-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d={FEATURE_ICONS[i % FEATURE_ICONS.length]} />
+                    </svg>
+                  </div>
+                  <div className="pd-feature-text">
+                    <strong className="pd-feature-title">{feat}</strong>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
+      {/* ── Downloads ────────────────────────────────────────────────── */}
+      <section className="pd-downloads-section" aria-labelledby="pd-downloads-heading">
+        <div className="section-inner-new">
+          <h2 id="pd-downloads-heading" className="pd-downloads-heading">Product Documents</h2>
+          <div className="pd-dl-grid">
+            <DownloadTile label="Product Details" href={product.brochure} />
+            <DownloadTile
+              label="Surgical Technique"
+              href={product.surgicalTechnique?.[0]?.url}
+            />
+            {product.clinicalEvidence && product.clinicalEvidence.length > 0 ? (
+              <Link
+                href={`/clinical-evidence/${product.clinicalEvidence[0].slug}`}
+                className="pd-dl-tile"
+                aria-label="View Clinical Evidence"
+              >
+                <div className="pd-dl-thumb">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                </div>
+                <div className="pd-dl-label">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                  <span>Clinical Evidence</span>
+                </div>
+              </Link>
+            ) : (
+              <DownloadTile label="Clinical Evidence" disabled />
+            )}
+            <DownloadTile label="IFU" href={product.ifu} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Indications ─────────────────────────────────────────────── */}
       {product.indications && product.indications.length > 0 && (
-        <section className="section-new" style={{ background: "var(--neutral)" }} aria-labelledby="product-indications">
+        <section className="section-new" style={{ background: "var(--neutral)" }} aria-labelledby="pd-indications">
           <div className="section-inner-new">
             <span className="section-label-new">Clinical Use</span>
-            <h2 id="product-indications" className="section-title-new" style={{ marginBottom: "32px" }}>Indications</h2>
+            <h2 id="pd-indications" className="section-title-new" style={{ marginBottom: "32px" }}>Indications</h2>
             <div style={{ columns: 2, columnGap: "60px" }}>
               {product.indications.map((ind, i) => (
-                <div key={i} style={{ marginBottom: "16px", paddingLeft: "20px", borderLeft: "2px solid var(--secondary)", fontSize: "14px", color: "var(--gray-600)", breakInside: "avoid" }}>
+                <div
+                  key={i}
+                  style={{
+                    marginBottom: "16px",
+                    paddingLeft: "20px",
+                    borderLeft: "2px solid var(--secondary)",
+                    fontSize: "14px",
+                    color: "var(--gray-600)",
+                    breakInside: "avoid",
+                  }}
+                >
                   {ind}
                 </div>
               ))}
@@ -138,41 +240,12 @@ export default async function ProductDetailPage({
         </section>
       )}
 
-      {product.clinicalEvidence && product.clinicalEvidence.length > 0 && (
-        <section className="evidence-section-new" aria-labelledby="product-clinical-evidence">
-          <div className="evidence-inner-new">
-            <div className="evidence-left-new">
-              <span className="section-label-new" style={{ color: "var(--secondary)" }}>Data Qualification</span>
-              <h2 id="product-clinical-evidence" className="section-title-new" style={{ color: "white" }}>Supporting Evidence</h2>
-              <p className="section-sub-new" style={{ color: "rgba(255,255,255,0.7)" }}>
-                Explore the clinical papers and technical reports that validate the design and efficacy of {product.name}.
-              </p>
-            </div>
-            <div className="why-grid-new" style={{ marginTop: 0 }}>
-              {product.clinicalEvidence.map((ce) => (
-                <Link key={ce._id} href={`/clinical-evidence/${ce.slug}`} className="why-card-new" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", textDecoration: "none" }}>
-                  <div className="why-card-body-new">
-                    <span className="product-status-new" style={{ background: "rgba(255,255,255,0.1)", color: "white", marginBottom: "12px" }}>Resource</span>
-                    <h4 style={{ color: "white", fontFamily: "var(--headline)", fontSize: "15px", fontWeight: 700 }}>{ce.title}</h4>
-                    <span style={{ marginTop: "auto", color: "var(--secondary)", fontSize: "13px", fontWeight: 700, display: "flex", alignItems: "center", gap: "6px" }}>
-                      View Study
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                        <path d="M2 7h10M8 3l4 4-4 4" />
-                      </svg>
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="section-new" aria-labelledby="product-contact-cta">
+      {/* ── CTA ─────────────────────────────────────────────────────── */}
+      <section className="section-new" aria-labelledby="pd-contact-cta">
         <div className="section-inner-new" style={{ textAlign: "center" }}>
           <div style={{ maxWidth: "600px", margin: "0 auto" }}>
             <span className="section-label-new">Next Steps</span>
-            <h2 id="product-contact-cta" className="section-title-new" style={{ marginBottom: "20px" }}>
+            <h2 id="pd-contact-cta" className="section-title-new" style={{ marginBottom: "20px" }}>
               Interested in {product.name}?
             </h2>
             <p className="section-sub-new" style={{ marginBottom: "40px", marginInline: "auto" }}>
