@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 const CATEGORIES = [
   { value: "all",              label: "All" },
+  { value: "patents",          label: "Patents" },
   { value: "clinical-summary", label: "Clinical Summaries" },
   { value: "publication",      label: "Publications" },
   { value: "white-paper",      label: "White Papers" },
