@@ -4,6 +4,9 @@ import { PRODUCTS_QUERY } from "@/lib/sanity/queries";
 import type { Product } from "@/types/sanity";
 import ProductCard from "@/components/products/ProductCard";
 
+// Re-fetch from Sanity and regenerate this page at most every 60 seconds
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Products",
   description:
