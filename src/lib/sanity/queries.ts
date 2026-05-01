@@ -9,8 +9,8 @@ export const HOME_QUERY = `coalesce(*[_type == "homePage"][0], {}) {
   heroCtaHref,
   heroBadge,
   "productsTeaser": select(
-    count(productsTeaser) > 0 => productsTeaser[]->{_id, name, tagline, "slug": slug.current, heroImage},
-    true => *[_type == "product"] | order(order asc)[0...4]{_id, name, tagline, "slug": slug.current, heroImage}
+    count(productsTeaser) > 0 => productsTeaser[]->{_id, name, tagline, status, "slug": slug.current, heroImage},
+    true => *[_type == "product"] | order(order asc)[0...4]{_id, name, tagline, status, "slug": slug.current, heroImage}
   ),
   clinicalEvidenceTeaser,
   solutionsTeaserLabel,
@@ -54,7 +54,8 @@ export const CLINICAL_EVIDENCE_QUERY = `*[_type == "clinicalEvidence"] | order(_
   summary,
   publishedAt,
   journal,
-  heroImage
+  heroImage,
+  "fileUrl": files[0].file.asset->url
 }`;
 
 // Single clinical evidence doc

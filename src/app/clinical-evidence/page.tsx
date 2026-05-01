@@ -86,7 +86,7 @@ export default async function ClinicalEvidencePage({
           {docs.length > 0 ? (
             <div className="why-grid-new" style={{ marginTop: "0" }}>
               {docs.map((doc) => (
-                <Link key={doc._id} href={`/clinical-evidence/${doc.slug}`} className="why-card-new" id={`ce-card-${doc._id}`} style={{ textDecoration: "none" }}>
+                <Link key={doc._id} href={doc.fileUrl || `/clinical-evidence/${doc.slug}`} target="_blank" rel="noopener noreferrer" className="why-card-new" id={`ce-card-${doc._id}`} style={{ textDecoration: "none" }}>
                   <div className="why-card-body-new">
                     <span className="product-status-new" style={{ background: "#F1F5F9", color: "var(--primary)", marginBottom: "16px" }}>
                       {CATEGORIES.find((c) => c.value === doc.category)?.label ?? doc.category}
@@ -107,7 +107,7 @@ export default async function ClinicalEvidencePage({
                         {doc.publishedAt ? new Date(doc.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short" }) : "N/A"}
                       </span>
                       <span style={{ fontFamily: "var(--headline)", fontSize: "13px", fontWeight: 700, color: "var(--primary)", display: "flex", alignItems: "center", gap: "6px" }}>
-                        Read Case Study
+                        See PDF
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                           <path d="M2 7h10M8 3l4 4-4 4" />
                         </svg>

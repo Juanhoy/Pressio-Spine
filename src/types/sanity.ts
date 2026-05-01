@@ -49,6 +49,7 @@ export interface ClinicalEvidence {
   authors?: string[];
   heroImage?: SanityImage;
   files?: SanityFile[];
+  fileUrl?: string;
   relatedProducts?: { _id: string; name: string; slug: string }[];
 }
 

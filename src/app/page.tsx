@@ -287,7 +287,7 @@ export default async function HomePage() {
               <span className="section-label-new">Newsroom</span>
               <h2 className="section-title-new" id="news-heading">Latest News</h2>
             </div>
-            <Link href="/news" className="why-card-new a" style={{ color: "var(--primary)", fontWeight: 700, fontSize: 13, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+            <Link href="/news" style={{ color: "var(--primary)", fontWeight: 700, fontSize: 14, textDecoration: "none", display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: "100px", border: "1px solid rgba(37, 59, 128, 0.2)", transition: "all 0.2s" }} className="hover-bg-primary-light">
               All Press Releases
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M2 7h10M8 3l4 4-4 4" />
@@ -298,7 +298,17 @@ export default async function HomePage() {
           <div className="why-grid-new">
             {(data?.newsTeaser ?? []).map((post) => (
               <article className="product-card-new" key={post._id}>
-                <div className="product-card-img-new" style={{ backgroundColor: "#F1F5F9", height: 180 }} />
+                <div className="product-card-img-new" style={{ backgroundColor: "#F1F5F9", height: 180, position: "relative", overflow: "hidden" }}>
+                  {post.heroImage && (
+                    <Image
+                      src={urlFor(post.heroImage).width(600).height(400).url()}
+                      alt={post.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      unoptimized
+                    />
+                  )}
+                </div>
                 <div className="product-card-body-new">
                   <div style={{ fontFamily: "var(--headline)", fontSize: 11, fontWeight: 600, color: "var(--tertiary)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 10 }}>
                     {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Recent"}
