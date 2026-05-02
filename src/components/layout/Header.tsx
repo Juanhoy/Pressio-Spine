@@ -66,6 +66,15 @@ export default function Header() {
         </button>
       </div>
       
+      {/* Invisible overlay to close menu when clicking outside */}
+      {menuOpen && (
+        <div 
+          onClick={() => setMenuOpen(false)}
+          style={{ position: "fixed", inset: 0, zIndex: 98 }}
+          aria-hidden="true"
+        />
+      )}
+
       <style dangerouslySetInnerHTML={{__html: `
         @media (max-width: 900px) {
           #main-nav.nav-new.open {
