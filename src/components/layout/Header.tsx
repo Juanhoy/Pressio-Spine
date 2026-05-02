@@ -69,12 +69,15 @@ export default function Header() {
       <style dangerouslySetInnerHTML={{__html: `
         @media (max-width: 900px) {
           #main-nav.nav-new.open {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 24px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            bottom: auto !important; 
+            border: 1px solid rgba(255,255,255,0.4);
+            border-top: none;
           }
         }
       `}} />
