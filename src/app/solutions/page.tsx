@@ -5,6 +5,8 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { SOLUTIONS_QUERY } from "@/lib/sanity/queries";
 import type { SolutionsPage } from "@/types/sanity";
 
+export const revalidate = 30;
+
 export const metadata: Metadata = {
   title: "Solutions",
   description:

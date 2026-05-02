@@ -5,6 +5,8 @@ import { COMPANY_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { CompanyPage, TeamMember } from "@/types/sanity";
 
+export const revalidate = 30;
+
 export const metadata: Metadata = {
   title: "Company",
   description:
