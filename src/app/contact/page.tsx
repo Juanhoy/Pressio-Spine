@@ -141,7 +141,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "14px 16px",
   border: "1px solid rgba(255, 255, 255, 0.2)",
-  borderRadius: "100px",
+  borderRadius: "16px",
   fontSize: "15px",
   fontFamily: "var(--body)",
   color: "#000000",
@@ -172,18 +172,110 @@ function Field({
 }
 
 function RoleSelect() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  const options = [
+    "Surgeon",
+    "OR Staff",
+    "ASC Administrator",
+    "Distributor",
+    "Investor",
+    "Other",
+  ];
+
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <label htmlFor="contact-role" style={labelStyle}>Role</label>
-      <select id="contact-role" name="role" style={{ ...inputStyle, appearance: "auto" }}>
-        <option value="">Select your role…</option>
-        <option value="Surgeon">Surgeon</option>
-        <option value="OR Staff">OR Staff</option>
-        <option value="ASC Administrator">ASC Administrator</option>
-        <option value="Distributor">Distributor</option>
-        <option value="Investor">Investor</option>
-        <option value="Other">Other</option>
-      </select>
+      <input type="hidden" id="contact-role" name="role" value={selected} />
+      
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          ...inputStyle,
+          cursor: "pointer",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          userSelect: "none",
+        }}
+      >
+        <span style={{ color: selected ? "#000000" : "rgba(0, 0, 0, 0.6)" }}>
+          {selected || "Select your role…"}
+        </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="rgba(0, 0, 0, 0.6)"
+          strokeWidth="2"
+          style={{
+            transform: isOpen ? "rotate(180deg)" : "none",
+            transition: "transform 0.2s ease",
+          }}
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+
+      {isOpen && (
+        <>
+          <div
+            onClick={() => setIsOpen(false)}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 90,
+              cursor: "default"
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "calc(100% + 6px)",
+              left: 0,
+              width: "100%",
+              background: "rgba(255, 255, 255, 0.96)",
+              backdropFilter: "blur(12px)",
+              border: "1px solid rgba(255, 255, 255, 0.3)",
+              borderRadius: "16px",
+              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.12)",
+              zIndex: 100,
+              overflow: "hidden",
+              padding: "4px 0",
+            }}
+          >
+            {options.map((option) => (
+              <div
+                key={option}
+                onMouseEnter={() => setHovered(option)}
+                onMouseLeave={() => setHovered(null)}
+                onClick={() => {
+                  setSelected(option);
+                  setIsOpen(false);
+                }}
+                style={{
+                  padding: "12px 18px",
+                  color: "#000000",
+                  fontSize: "15px",
+                  fontFamily: "var(--body)",
+                  cursor: "pointer",
+                  transition: "all 0.15s ease",
+                  background: hovered === option || selected === option ? "rgba(0, 0, 0, 0.06)" : "transparent",
+                  fontWeight: selected === option ? 600 : 400,
+                }}
+              >
+                {option}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
