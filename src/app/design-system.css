@@ -127,23 +127,27 @@
   outline-offset: 2px;
 }
 
-.nav-cta-new {
+.nav-new a.nav-cta-new {
   margin-left: 12px;
-  background: var(--gradient);
-  color: var(--white);
-  padding: 10px 22px;
-  border-radius: 100px;
+  background: var(--gradient) !important;
+  color: #FFFFFF !important;
+  padding: 10px 22px !important;
+  border-radius: 100px !important;
   font-family: var(--headline, system-ui, sans-serif);
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
   transition: all var(--transition);
   border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.nav-cta-new:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.1);
+.nav-new a.nav-cta-new:hover {
+  background: var(--gradient) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  filter: brightness(1.1) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Mobile nav toggle */
