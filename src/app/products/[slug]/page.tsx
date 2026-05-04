@@ -54,44 +54,24 @@ const FEATURE_ICONS = [
 function DownloadTile({
   label,
   href,
+  imageUrl,
   disabled = false,
 }: {
   label: string;
   href?: string | null;
+  imageUrl?: string | null;
   disabled?: boolean;
 }) {
-  const isPdf = href?.toLowerCase().endsWith(".pdf");
-
   const inner = (
     <>
-      <div className="pd-dl-thumb" style={{ position: "relative", overflow: "hidden" }}>
-        {href && !disabled && isPdf ? (
-          <>
-            <iframe
-              className="pdf-preview-iframe"
-              src={`${href}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
-              title={`${label} Preview`}
-              style={{
-                width: "calc(100% + 64px)",
-                height: "calc(100% + 80px)",
-                border: "none",
-                pointerEvents: "none",
-                position: "absolute",
-                top: "-60px",
-                left: "-32px",
-              }}
-              scrolling="no"
-              tabIndex={-1}
-            />
-            {/* Invisible overlay to block interactions and clicks on the iframe */}
-            <div className="pdf-preview-overlay" style={{ position: "absolute", inset: 0, zIndex: 10 }} />
-            <svg className="pdf-preview-fallback" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" style={{ display: "none" }}>
-              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="9" y1="13" x2="15" y2="13" />
-              <line x1="9" y1="17" x2="15" y2="17" />
-            </svg>
-          </>
+        {imageUrl && !disabled ? (
+          <Image
+            src={imageUrl}
+            alt={`${label} Preview`}
+            fill
+            style={{ objectFit: "cover" }}
+            unoptimized
+          />
         ) : (
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
@@ -215,10 +195,15 @@ export default async function ProductDetailPage({
         <div className="section-inner-new">
           <h2 id="pd-downloads-heading" className="pd-downloads-heading">Product Documents</h2>
           <div className="pd-dl-grid">
-            <DownloadTile label="Product Details" href={product.brochure} />
+            <DownloadTile 
+              label="Product Details" 
+              href={product.brochure} 
+              imageUrl={product.brochureImage ? urlFor(product.brochureImage).width(400).height(400).url() : null}
+            />
             <DownloadTile
               label="Surgical Technique"
               href={product.surgicalTechnique?.[0]?.url}
+              imageUrl={product.surgicalTechnique?.[0]?.coverImage ? urlFor(product.surgicalTechnique[0].coverImage).width(400).height(400).url() : null}
             />
             {product.clinicalEvidence && product.clinicalEvidence.length > 0 ? (
               <Link
@@ -226,11 +211,21 @@ export default async function ProductDetailPage({
                 className="pd-dl-tile"
                 aria-label="View Clinical Evidence"
               >
-                <div className="pd-dl-thumb">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                    <polyline points="14 2 14 8 20 8" />
-                  </svg>
+                <div className="pd-dl-thumb" style={{ position: "relative", overflow: "hidden" }}>
+                  {product.clinicalEvidence[0].heroImage ? (
+                    <Image
+                      src={urlFor(product.clinicalEvidence[0].heroImage).width(400).height(400).url()}
+                      alt="Clinical Evidence Preview"
+                      fill
+                      style={{ objectFit: "cover" }}
+                      unoptimized
+                    />
+                  ) : (
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                  )}
                 </div>
                 <div className="pd-dl-label">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -243,7 +238,11 @@ export default async function ProductDetailPage({
             ) : (
               <DownloadTile label="Clinical Evidence" disabled />
             )}
-            <DownloadTile label="IFU" href={product.ifu} />
+            <DownloadTile 
+              label="IFU" 
+              href={product.ifu} 
+              imageUrl={product.ifuImage ? urlFor(product.ifuImage).width(400).height(400).url() : null}
+            />
           </div>
         </div>
       </section>
@@ -295,13 +294,6 @@ export default async function ProductDetailPage({
           </div>
         </div>
     </section>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        @media (max-width: 768px) {
-          .pdf-preview-iframe, .pdf-preview-overlay { display: none !important; }
-          .pdf-preview-fallback { display: block !important; }
-        }
-      `}} />
     </>
   );
 }

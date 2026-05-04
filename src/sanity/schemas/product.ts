@@ -26,7 +26,8 @@ export const product = defineType({
           type: "object",
           fields: [
             { name: "title", title: "Document Title", type: "string" },
-            { name: "file",  title: "PDF File",       type: "file", options: { accept: ".pdf" } }
+            { name: "file",  title: "PDF File",       type: "file", options: { accept: ".pdf" } },
+            { name: "coverImage", title: "Cover Image", type: "image", options: { hotspot: true } }
           ]
         }
       ]
@@ -37,12 +38,18 @@ export const product = defineType({
       title: "Instructions for Use (IFU)",
       type: "file",
       options: { accept: ".pdf" },
+      fields: [
+        { name: "coverImage", title: "Cover Image", type: "image", options: { hotspot: true } }
+      ]
     }),
     defineField({
       name: "brochure",
       title: "Product Brochure",
       type: "file",
       options: { accept: ".pdf" },
+      fields: [
+        { name: "coverImage", title: "Cover Image", type: "image", options: { hotspot: true } }
+      ]
     }),
   ],
   preview: { select: { title: "name", subtitle: "status", media: "heroImage" } },

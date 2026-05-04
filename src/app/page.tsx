@@ -12,7 +12,7 @@ import ProductCard from "@/components/products/ProductCard";
 // ── Hero video – served from Cloudinary ────────────────────────────────────────
 // Update this URL in Sanity (homePage.heroVideoUrl) or change the constant below.
 const HERO_VIDEO_URL =
-  "https://res.cloudinary.com/dvm7fjhxs/video/upload/v1776828558/Hero_Video_gvfgli.mp4";
+  "https://res.cloudinary.com/dvm7fjhxs/video/upload/f_auto,q_auto/v1776828558/Hero_Video_gvfgli.mp4";
 
 export const metadata: Metadata = {
   title: "Pressio Spine™ | Advanced Spinal Implant Solutions",
@@ -37,6 +37,8 @@ export default async function HomePage() {
           muted
           loop
           playsInline
+          preload="auto"
+          poster={heroVideoUrl.replace(".mp4", ".jpg")}
           aria-hidden="true"
         />
         <div className="hero-overlay-new" aria-hidden="true" />
@@ -132,21 +134,21 @@ export default async function HomePage() {
                 desc: "Harnessing nitinol's superelastic properties for continuous dynamic compression, optimized for long-term fusion biology.",
                 href: "/clinical-evidence",
                 label: "Clinical Evidence",
-                img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777651397/Precision-Engineering-Clinical-Mechanism_m8nein.jpg"
+                img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651397/Precision-Engineering-Clinical-Mechanism_m8nein.jpg"
               },
               {
                 title: "Workflow Simplicity",
                 desc: "Reduced tray burden with single-use sterile instrumentation, specifically engineered for the ASC economic model.",
                 href: "/solutions",
                 label: "Solution Overview",
-                img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777651395/Precision-Engineering-WorkflowSimplicity_gatklc.jpg"
+                img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651395/Precision-Engineering-WorkflowSimplicity_gatklc.jpg"
               },
               {
                 title: "Platform Potential",
                 desc: "Our cervical technology is the foundation for a broader nitinol-based spinal fixation platform currently in development.",
                 href: "/products",
                 label: "Roadmap",
-                img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777651408/Precision-Engineering-Platform-Potential_vxhga9.jpg"
+                img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651408/Precision-Engineering-Platform-Potential_vxhga9.jpg"
               }
             ].map((card, i) => (
               <div className="why-card-new" key={i}>

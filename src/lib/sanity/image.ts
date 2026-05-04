@@ -7,5 +7,5 @@ export function urlFor(source: any) {
   return createImageUrlBuilder({
     projectId: "416agrv8",
     dataset: "production",
-  }).image(source);
+  }).image(source).auto("format");
 }

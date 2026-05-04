@@ -25,7 +25,9 @@ export const PRODUCTS_QUERY = `*[_type == "product"] | order(order asc){
   status,
   "slug": slug.current,
   heroImage,
-  category
+  category,
+  surgicalTechnique[]{ title, "url": file.asset->url },
+  "brochure": brochure.asset->url
 }`;
 
 // Single product
@@ -39,10 +41,12 @@ export const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0]{
   description,
   keyFeatures[],
   indications[],
-  surgicalTechnique[]{ title, "url": file.asset->url },
-  clinicalEvidence[]->{_id, title, "slug": slug.current},
+  surgicalTechnique[]{ title, "url": file.asset->url, coverImage },
+  clinicalEvidence[]->{_id, title, "slug": slug.current, heroImage},
   "ifu": ifu.asset->url,
-  "brochure": brochure.asset->url
+  "ifuImage": ifu.coverImage,
+  "brochure": brochure.asset->url,
+  "brochureImage": brochure.coverImage
 }`;
 
 // Clinical Evidence list

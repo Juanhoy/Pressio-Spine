@@ -9,6 +9,7 @@ export interface SanityImage {
 export interface SanityFile {
   title?: string;
   url: string;
+  coverImage?: SanityImage;
 }
 
 // ── Product ──────────────────────────────────────────────────────────────────
@@ -26,7 +27,9 @@ export interface Product {
   surgicalTechnique?: SanityFile[];
   clinicalEvidence?: ClinicalEvidenceStub[];
   ifu?: string; // URL
+  ifuImage?: SanityImage;
   brochure?: string; // URL
+  brochureImage?: SanityImage;
   category?: string;
 }
 
