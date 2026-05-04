@@ -64,6 +64,7 @@ function DownloadTile({
 }) {
   const inner = (
     <>
+      <div className="pd-dl-thumb" style={{ position: "relative", overflow: "hidden" }}>
         {imageUrl && !disabled ? (
           <Image
             src={imageUrl}
