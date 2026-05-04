@@ -37,6 +37,7 @@ export interface ClinicalEvidenceStub {
   _id: string;
   title: string;
   slug: string;
+  heroImage?: SanityImage;
 }
 
 // ── Clinical Evidence ─────────────────────────────────────────────────────────
