@@ -9,8 +9,8 @@ export const HOME_QUERY = `coalesce(*[_type == "homePage"][0], {}) {
   heroCtaHref,
   heroBadge,
   "productsTeaser": select(
-    count(productsTeaser) > 0 => productsTeaser[]->{_id, name, tagline, status, "slug": slug.current, heroImage},
-    true => *[_type == "product"] | order(order asc)[0...4]{_id, name, tagline, status, "slug": slug.current, heroImage}
+    count(productsTeaser) > 0 => productsTeaser[]->{_id, name, tagline, status, "slug": slug.current, heroImage, description, "brochure": brochure.asset->url},
+    true => *[_type == "product"] | order(order asc)[0...4]{_id, name, tagline, status, "slug": slug.current, heroImage, description, "brochure": brochure.asset->url}
   ),
   clinicalEvidenceTeaser,
   solutionsTeaserLabel,

@@ -80,27 +80,29 @@ export default async function HomePage() {
         <div className="proof-inner-new">
           {[
             {
-              icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
+              icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+              path2: "M9 12l2 2 4-4",
               title: "FDA 510(k) Cleared",
               subtitle: "Anterior Cervical Fixation"
             },
             {
-              icon: "M12 6v6l4 2",
+              icon: "M12 5v4 M12 19v-4 M5 12h4 M19 12h-4",
               title: "Nitinol Continuous Compression",
               subtitle: "Shape memory fixation design",
               circle: true
             },
             {
-              icon: "M8 2v4M16 2v4M2 10h20",
+              icon: "M15 4V2a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v2",
+              path2: "M12 9v6 M9 12h6",
               title: "Single-Use Sterile Kit",
               subtitle: "Workflow-optimized for ASCs",
               rect: true
             },
             {
-              icon: "M7 16l4-4 4 4 5-5",
+              icon: "M12 2L2 7l10 5 10-5-10-5z",
+              path2: "M2 17l10 5 10-5 M2 12l10 5 10-5",
               title: "Platform Expansion Underway",
-              subtitle: "Cervical today. Broader spine in development.",
-              path2: "M3 3v18h18"
+              subtitle: "Cervical today. Broader spine in development."
             }
           ].map((item, i) => (
             <div className="proof-item-new" key={i}>
@@ -131,7 +133,7 @@ export default async function HomePage() {
             {[
               {
                 title: "Clinical Mechanism",
-                desc: "Harnessing nitinol's superelastic properties for continuous dynamic compression, optimized for long-term fusion biology.",
+                desc: "Harnessing nitinol's superelastic properties for continuous dynamic compression, designed to support long-term fusion biology.",
                 href: "/clinical-evidence",
                 label: "Clinical Evidence",
                 img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651397/Precision-Engineering-Clinical-Mechanism_m8nein.jpg"
@@ -228,16 +230,16 @@ export default async function HomePage() {
 
           <div className="evidence-cards-new">
             <div className="evidence-card-new">
-              <div className="evidence-tag-new">Key Performance Metric</div>
-              <div className="evidence-stat-new">98%</div>
-              <p className="evidence-desc-new">Fusion rate observed in an initial retrospective cohort study of CONTINUUM-treated procedures.</p>
+              <div className="evidence-tag-new">CT-Confirmed Fusion Rate</div>
+              <div className="evidence-stat-new">97.5%</div>
+              <p className="evidence-desc-new">Independent radiology confirmed a 97.5% fusion rate at the 24-month gold-standard endpoint—with zero hardware failures or device-related adverse events to date.</p>
               <div className="evidence-qual-new">Retrospective study; n=120; CT-confirmed radiographic fusion.</div>
             </div>
             <div className="evidence-card-new">
-              <div className="evidence-tag-new">Workflow Analysis</div>
-              <div className="evidence-stat-new">40%</div>
-              <p className="evidence-desc-new">Reduction in OR set-up time measured using the single-use sterile kit format.</p>
-              <div className="evidence-qual-new">Comparative workflow analysis; n=45; results may vary.</div>
+              <div className="evidence-tag-new">Category-Creating IP Moat</div>
+              <div className="evidence-stat-new">17 Patents</div>
+              <p className="evidence-desc-new">Pioneering the application of Nitinol shape-memory alloys to spinal fixation. Category-creating IP developed with ISASS and AANS leadership.</p>
+              <div className="evidence-qual-new">8 Granted + 9 Patents Pending</div>
             </div>
           </div>
         </div>
