@@ -69,8 +69,8 @@ export default function PrivacyPolicyPage() {
             <h3 style={{ fontFamily: "var(--headline)", fontSize: "20px", color: "var(--gray-900)", marginBottom: "16px", marginTop: "32px" }}>5. Contact Us</h3>
             <p style={{ marginBottom: "24px" }}>
               If you have any questions or concerns about this Privacy Policy, please contact us at:<br/>
-              <strong>Email:</strong> privacy@pressiospine.com<br/>
-              <strong>Address:</strong> [Company Address Placeholder]
+              <strong>Email:</strong> <a href="mailto:info@pressiospine.com" style={{ color: "var(--primary)", textDecoration: "underline" }}>info@pressiospine.com</a><br/>
+              <strong>Phone:</strong> <a href="tel:18445740011" style={{ color: "var(--primary)", textDecoration: "underline" }}>1-844-574-0011</a>
             </p>
 
             <p style={{ fontSize: "13px", color: "var(--gray-500)", marginTop: "48px", borderTop: "1px solid var(--gray-200)", paddingTop: "24px" }}>
