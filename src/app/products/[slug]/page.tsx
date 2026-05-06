@@ -7,8 +7,8 @@ import { PRODUCT_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { Product } from "@/types/sanity";
 
-// Re-fetch from Sanity and regenerate at most every 30 seconds
-export const revalidate = 30;
+// Re-fetch from Sanity on every request in dev; cache for 30 s in production
+export const revalidate = process.env.NODE_ENV === "development" ? 0 : 30;
 // Allow new slugs (products created after build) to be rendered on-demand
 export const dynamicParams = true;
 
@@ -206,39 +206,29 @@ export default async function ProductDetailPage({
               href={product.surgicalTechnique?.[0]?.url}
               imageUrl={product.surgicalTechnique?.[0]?.coverImage ? urlFor(product.surgicalTechnique[0].coverImage).width(400).height(400).url() : null}
             />
-            {product.clinicalEvidence && product.clinicalEvidence.length > 0 ? (
-              <Link
-                href={`/clinical-evidence/${product.clinicalEvidence[0].slug}`}
-                className="pd-dl-tile"
-                aria-label="View Clinical Evidence"
-              >
-                <div className="pd-dl-thumb" style={{ position: "relative", overflow: "hidden" }}>
-                  {product.clinicalEvidence[0].heroImage ? (
-                    <Image
-                      src={urlFor(product.clinicalEvidence[0].heroImage).width(400).height(400).url()}
-                      alt="Clinical Evidence Preview"
-                      fill
-                      style={{ objectFit: "cover" }}
-                      unoptimized
-                    />
-                  ) : (
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                    </svg>
-                  )}
-                </div>
-                <div className="pd-dl-label">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                  <span>Clinical Evidence</span>
-                </div>
-              </Link>
-            ) : (
-              <DownloadTile label="Clinical Evidence" disabled />
-            )}
+            {/* Clinical Evidence — always links to the product-specific CE page */}
+            <Link
+              href={`/products/${slug}/clinical-evidence`}
+              className="pd-dl-tile"
+              aria-label="View Clinical Evidence"
+              id="pd-ce-tile"
+            >
+              <div className="pd-dl-thumb" style={{ position: "relative", overflow: "hidden" }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="9" y1="13" x2="15" y2="13" />
+                  <line x1="9" y1="17" x2="15" y2="17" />
+                </svg>
+              </div>
+              <div className="pd-dl-label">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <span>Clinical Evidence</span>
+              </div>
+            </Link>
             <DownloadTile 
               label="IFU" 
               href={product.ifu} 

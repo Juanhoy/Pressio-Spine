@@ -26,6 +26,7 @@ export const PRODUCTS_QUERY = `*[_type == "product"] | order(order asc){
   "slug": slug.current,
   heroImage,
   category,
+  description,
   surgicalTechnique[]{ title, "url": file.asset->url },
   "brochure": brochure.asset->url
 }`;
@@ -48,6 +49,26 @@ export const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0]{
   "brochure": brochure.asset->url,
   "brochureImage": brochure.coverImage
 }`;
+
+// Product + its full clinical evidence documents (for the product-specific CE page)
+export const PRODUCT_CLINICAL_EVIDENCE_QUERY = `*[_type == "product" && slug.current == $slug][0]{
+  _id,
+  name,
+  "slug": slug.current,
+  "clinicalEvidence": clinicalEvidence[]->{
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    summary,
+    publishedAt,
+    journal,
+    "fileUrl": files[0].file.asset->url,
+    "allFiles": files[]{ title, "url": file.asset->url }
+  }
+}`;
+
+
 
 // Clinical Evidence list
 export const CLINICAL_EVIDENCE_QUERY = `*[_type == "clinicalEvidence"] | order(_createdAt desc){

@@ -9,9 +9,11 @@ interface ProductCardProps {
   product: Product;
   /** Card index (0-based) – used to alternate image left/right */
   index?: number;
+  /** Show the full product description. Default: false (compact card for home page). */
+  showDescription?: boolean;
 }
 
-export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+export default function ProductCard({ product, index = 0, showDescription = false }: ProductCardProps) {
   const imageRight = index % 2 !== 0;
 
   return (
@@ -46,8 +48,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           <p className="pc-tagline">{product.tagline}</p>
         )}
 
-        {/* Short description */}
-        {product.description && (
+        {/* Short description — only shown when caller opts in (e.g. Products page) */}
+        {showDescription && product.description && (
           <p className="pc-desc">{product.description}</p>
         )}
 

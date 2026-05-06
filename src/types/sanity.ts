@@ -45,7 +45,7 @@ export interface ClinicalEvidence {
   _id: string;
   title: string;
   slug: string;
-  category: "clinical-summary" | "white-paper" | "publication";
+  category: "patents" | "clinical-summary" | "white-paper" | "publication";
   summary: string;
   body?: any[]; // Portable Text
   publishedAt?: string;
@@ -56,6 +56,25 @@ export interface ClinicalEvidence {
   fileUrl?: string;
   relatedProducts?: { _id: string; name: string; slug: string }[];
 }
+
+// Lightweight shape returned by PRODUCT_CLINICAL_EVIDENCE_QUERY
+export interface ProductClinicalEvidence {
+  _id: string;
+  name: string;
+  slug: string;
+  clinicalEvidence?: Array<{
+    _id: string;
+    title: string;
+    slug: string;
+    category: ClinicalEvidence["category"];
+    summary?: string;
+    publishedAt?: string;
+    journal?: string;
+    fileUrl?: string;
+    allFiles?: { title?: string; url: string }[];
+  }>;
+}
+
 
 // ── News ──────────────────────────────────────────────────────────────────────
 export interface NewsPost {

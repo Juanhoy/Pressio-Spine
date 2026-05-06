@@ -366,6 +366,27 @@
   border-color: rgba(255, 255, 255, 0.6);
 }
 
+.btn-secondary-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--primary);
+  font-family: var(--headline);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 100px;
+  text-decoration: none;
+  border: 2px solid var(--primary);
+  transition: background var(--transition), color var(--transition);
+}
+
+.btn-secondary-new:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
 /* ─── PROOF BAR ─── */
 .proof-bar-new {
   background: var(--neutral);

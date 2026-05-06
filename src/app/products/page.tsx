@@ -48,7 +48,7 @@ export default async function ProductsPage() {
             {available.length > 0 ? (
               <div className="pc-list">
                 {available.map((p, i) => (
-                  <ProductCard key={p._id} product={p} index={i} />
+                  <ProductCard key={p._id} product={p} index={i} showDescription />
                 ))}
               </div>
             ) : (
@@ -70,7 +70,7 @@ export default async function ProductsPage() {
 
               <div className="pc-list">
                 {development.map((p, i) => (
-                  <ProductCard key={p._id} product={p} index={available.length + i} />
+                  <ProductCard key={p._id} product={p} index={available.length + i} showDescription />
                 ))}
               </div>
             </div>
