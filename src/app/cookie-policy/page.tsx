@@ -64,7 +64,7 @@ export default function CookiePolicyPage() {
 
             <h3 style={{ fontFamily: "var(--headline)", fontSize: "20px", color: "var(--gray-900)", marginBottom: "16px", marginTop: "32px" }}>4. Contact Us</h3>
             <p style={{ marginBottom: "24px" }}>
-              If you have any questions about our use of cookies, please contact us at privacy@pressiospine.com.
+              If you have any questions about our use of cookies, please contact us at <a href="mailto:info@pressiospine.com" style={{ color: "var(--primary)", textDecoration: "underline" }}>info@pressiospine.com</a> or call us at <a href="tel:18445740011" style={{ color: "var(--primary)", textDecoration: "underline" }}>1-844-574-0011</a>.
             </p>
 
             <p style={{ fontSize: "13px", color: "var(--gray-500)", marginTop: "48px", borderTop: "1px solid var(--gray-200)", paddingTop: "24px" }}>
