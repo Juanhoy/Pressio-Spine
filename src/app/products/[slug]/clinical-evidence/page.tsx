@@ -6,7 +6,7 @@ import { PRODUCT_CLINICAL_EVIDENCE_QUERY } from "@/lib/sanity/queries";
 import type { ProductClinicalEvidence } from "@/types/sanity";
 
 // Always fresh in dev, 30 s ISR in production
-export const revalidate = process.env.NODE_ENV === "development" ? 0 : 30;
+export const revalidate = 30;
 export const dynamicParams = true;
 
 export async function generateMetadata({
