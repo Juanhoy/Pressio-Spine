@@ -2,35 +2,50 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 const HUBSPOT_PORTAL_ID  = process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID!;
 const HUBSPOT_FORM_ID    = process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM_ID!;
+const HUBSPOT_REGION     = process.env.NEXT_PUBLIC_HUBSPOT_REGION || "na1";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
 export default function ContactPage() {
   const [state, setState] = useState<FormState>("idle");
+  const [phone, setPhone] = useState<string | undefined>();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState("submitting");
 
     const form = e.currentTarget;
+    const hutk = document.cookie.match(/hubspotutk=([^;]+)/)?.[1];
+    
     const data = {
       fields: [
         { name: "firstname", value: (form.elements.namedItem("firstname") as HTMLInputElement).value },
         { name: "lastname",  value: (form.elements.namedItem("lastname")  as HTMLInputElement).value },
         { name: "email",     value: (form.elements.namedItem("email")     as HTMLInputElement).value },
         { name: "company",   value: (form.elements.namedItem("company")   as HTMLInputElement).value },
-        { name: "jobtitle",  value: (form.elements.namedItem("role")      as HTMLInputElement).value },
+        { name: "role",      value: (form.elements.namedItem("role")      as HTMLInputElement).value },
+        { name: "phone",     value: phone || "" },
         { name: "message",   value: (form.elements.namedItem("message")   as HTMLTextAreaElement).value },
       ],
-      context: { pageUri: window.location.href, pageName: "Contact" },
+      context: { 
+        pageUri: window.location.href, 
+        pageName: document.title || "Contact",
+        hutk: hutk 
+      },
     };
+
+    const baseUrl = HUBSPOT_REGION === "na1" 
+      ? "https://api.hsforms.com" 
+      : `https://api-${HUBSPOT_REGION}.hsforms.com`;
 
     try {
       const res = await fetch(
-        `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`,
+        `${baseUrl}/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -44,7 +59,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div style={{ background: "var(--gradient, linear-gradient(90deg, #253B80 0%, #4FC4F1 100%))", minHeight: "100vh", paddingTop: "calc(80px + var(--header-height, 72px))", paddingBottom: "100px", paddingInline: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div style={{ background: "var(--gradient, linear-gradient(90deg, #253B80 0%, #4FC4F1 100%))", minHeight: "100vh", paddingTop: "calc(32px + var(--header-height, 72px))", paddingBottom: "100px", paddingInline: "24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <div style={{ maxWidth: 640, width: "100%", margin: "0 auto", textAlign: "center", color: "white", marginBottom: "40px" }}>
         <span style={{ color: "#E0F2FE", fontWeight: 700, fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: "8px" }}>
           Get in Touch
@@ -78,6 +93,17 @@ export default function ContactPage() {
             </div>
             <div style={{ marginBottom: "20px" }}>
               <RoleSelect />
+            </div>
+            <div style={{ marginBottom: "20px" }}>
+              <label htmlFor="contact-phone" style={labelStyle}>Phone Number</label>
+              <PhoneInput
+                international
+                defaultCountry="US"
+                placeholder="Enter phone number"
+                value={phone}
+                onChange={setPhone}
+                id="contact-phone"
+              />
             </div>
             <div style={{ marginBottom: "24px" }}>
               <label htmlFor="contact-message" style={labelStyle}>Message *</label>
@@ -178,11 +204,8 @@ function RoleSelect() {
 
   const options = [
     "Surgeon",
-    "OR Staff",
-    "ASC Administrator",
-    "Distributor",
-    "Investor",
-    "Other",
+    "ASCs",
+    "Partner",
   ];
 
   return (

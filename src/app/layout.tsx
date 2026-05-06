@@ -6,6 +6,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/layout/CookieConsent";
 
+import Script from "next/script";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -65,6 +67,11 @@ export default function RootLayout({
         <main id="main-content">{children}</main>
         <Footer />
         <CookieConsent />
+        <Script
+          id="hubspot-tracking"
+          src={`https://js.hs-scripts.com/${process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID}.js`}
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
