@@ -83,26 +83,26 @@ export default async function HomePage() {
               icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
               path2: "M9 12l2 2 4-4",
               title: "FDA 510(k) Cleared",
-              subtitle: "Anterior Cervical Fixation"
+              subtitle: "Anterior Cervical Fixation C3 to C7"
             },
             {
-              icon: "M12 5v4 M12 19v-4 M5 12h4 M19 12h-4",
-              title: "Nitinol Continuous Compression",
-              subtitle: "Shape memory fixation design",
-              circle: true
+              icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z",
+              path2: "M14 2v6h6 M12 18h.01 M12 14h.01 M12 10h.01",
+              title: "17 Patents",
+              subtitle: "8 Granted, 9 Pending"
             },
             {
               icon: "M15 4V2a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v2",
               path2: "M12 9v6 M9 12h6",
               title: "Single-Use Sterile Kit",
-              subtitle: "Workflow-optimized for ASCs",
+              subtitle: "Zero trays, zero reprocessing",
               rect: true
             },
             {
-              icon: "M12 2L2 7l10 5 10-5-10-5z",
-              path2: "M2 17l10 5 10-5 M2 12l10 5 10-5",
-              title: "Platform Expansion Underway",
-              subtitle: "Cervical today. Broader spine in development."
+              icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2",
+              path2: "M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M19 3.13a4 4 0 0 1 0 7.75",
+              title: "100+ Years Combined Experience",
+              subtitle: "Clinical & Industry Expertise"
             }
           ].map((item, i) => (
             <div className="proof-item-new" key={i}>
@@ -207,44 +207,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Clinical Evidence ───────────────────────────────────────── */}
-      <section className="evidence-section-new" aria-labelledby="evidence-heading">
-        <div className="evidence-inner-new">
-          <div className="evidence-left-new">
-            <span className="section-label-new" style={{ color: "var(--secondary)" }}>Clinical Rationale</span>
-            <h2 className="section-title-new" id="evidence-heading">Evidence-Based Fixation</h2>
-            <p className="section-sub-new">
-              {data?.clinicalEvidenceTeaser ??
-                "Explore the clinical and technical rationale behind Pressio's continuous compression approach, including study results, imaging, and supporting evidence."}
-            </p>
-            <div className="evidence-disclaimer-new">
-              <strong>Data qualification note:</strong> All clinical data presented on this site includes study design, sample size, and applicable limitations.
-            </div>
-            <Link href="/clinical-evidence" className="btn-evidence-new">
-              View All Clinical Evidence
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path d="M2 7h10M8 3l4 4-4 4" />
-              </svg>
-            </Link>
-          </div>
-
-          <div className="evidence-cards-new">
-            <div className="evidence-card-new">
-              <div className="evidence-tag-new">CT-Confirmed Fusion Rate</div>
-              <div className="evidence-stat-new">97.5%</div>
-              <p className="evidence-desc-new">Independent radiology confirmed a 97.5% fusion rate at the 24-month gold-standard endpoint—with zero hardware failures or device-related adverse events to date.</p>
-              <div className="evidence-qual-new">Retrospective study; n=120; CT-confirmed radiographic fusion.</div>
-            </div>
-            <div className="evidence-card-new">
-              <div className="evidence-tag-new">Category-Creating IP Moat</div>
-              <div className="evidence-stat-new">17 Patents</div>
-              <p className="evidence-desc-new">Pioneering the application of Nitinol shape-memory alloys to spinal fixation. Category-creating IP developed with ISASS and AANS leadership.</p>
-              <div className="evidence-qual-new">8 Granted + 9 Patents Pending</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Built for the ASC Era ───────────────────────────────────── */}
       <section className="section-new asc-section-new" aria-labelledby="asc-heading">
         <div className="section-inner-new">
@@ -258,9 +220,12 @@ export default async function HomePage() {
 
           <div className="asc-grid-new">
             {[
-              { title: "OR Time", impact: "20–30 min saved/case", label1: "Traditional Model", val1: "15—25 min count", label2: "Pressio Continuum", val2: "Open and insert" },
-              { title: "Instrument Trays", impact: "100% tray elimination", label1: "Traditional Model", val1: "3—4 multi-tray sets", label2: "Pressio Continuum", val2: "Single-use sterile kit" },
-              { title: "Sterilization", impact: "$300-600+ saved/case", label1: "Traditional Model", val1: "On-site reprocessing", label2: "Pressio Continuum", val2: "Pre-sterilized" },
+              { title: "OR Time",          impact: "20–30 min saved/case",          label1: "Traditional Model", val1: "15‥25 min count",           label2: "Pressio Continuum", val2: "Open and insert" },
+              { title: "Instrument Trays", impact: "100% tray elimination",          label1: "Traditional Model", val1: "3–4 multi-tray sets",         label2: "Pressio Continuum", val2: "Single-use sterile kit" },
+              { title: "Sterilization",   impact: "$300–600+ saved/case",           label1: "Traditional Model", val1: "On-site reprocessing",          label2: "Pressio Continuum", val2: "Pre-sterilized" },
+              { title: "Rep Logistics",   impact: "Rep-independent",                 label1: "Traditional Model", val1: "Rep coordination required",     label2: "Pressio Continuum", val2: "Kit ships direct to site" },
+              { title: "RVU",             impact: "Higher margin per case",           label1: "Traditional Model", val1: "Standard ACDF reimbursement",   label2: "Pressio Continuum", val2: "Same RVU, lower cost" },
+              { title: "Inventory",       impact: "Near-zero inventory burden",       label1: "Traditional Model", val1: "Consignment at facility",        label2: "Pressio Continuum", val2: "Kit direct, no consignment" },
             ].map((item, i) => (
               <div className="asc-card-new" key={i}>
                 <div className="title-new">{item.title}</div>

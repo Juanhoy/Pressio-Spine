@@ -78,27 +78,29 @@ export default async function HomePage() {
         <div className="proof-inner-new">
           {[
             {
-              icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
+              icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+              path2: "M9 12l2 2 4-4",
               title: "FDA 510(k) Cleared",
-              subtitle: "Anterior Cervical Fixation"
+              subtitle: "Anterior Cervical Fixation C3 to C7"
             },
             {
-              icon: "M12 6v6l4 2",
-              title: "Nitinol Continuous Compression",
-              subtitle: "Shape memory fixation design",
-              circle: true
+              icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z",
+              path2: "M14 2v6h6 M12 18h.01 M12 14h.01 M12 10h.01",
+              title: "17 Patents",
+              subtitle: "8 Granted, 9 Pending"
             },
             {
-              icon: "M8 2v4M16 2v4M2 10h20",
+              icon: "M15 4V2a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v2",
+              path2: "M12 9v6 M9 12h6",
               title: "Single-Use Sterile Kit",
-              subtitle: "Workflow-optimized for ASCs",
+              subtitle: "Zero trays, zero reprocessing",
               rect: true
             },
             {
-              icon: "M7 16l4-4 4 4 5-5",
-              title: "Platform Expansion Underway",
-              subtitle: "Cervical today. Broader spine in development.",
-              path2: "M3 3v18h18"
+              icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2",
+              path2: "M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M19 3.13a4 4 0 0 1 0 7.75",
+              title: "100+ Years Combined Experience",
+              subtitle: "Clinical & Industry Expertise"
             }
           ].map((item, i) => (
             <div className="proof-item-new" key={i}>
@@ -225,12 +227,6 @@ export default async function HomePage() {
           </div>
 
           <div className="evidence-cards-new">
-            <div className="evidence-card-new">
-              <div className="evidence-tag-new">Key Performance Metric</div>
-              <div className="evidence-stat-new">98%</div>
-              <p className="evidence-desc-new">Fusion rate observed in an initial retrospective cohort study of CONTINUUM-treated procedures.</p>
-              <div className="evidence-qual-new">Retrospective study; n=120; CT-confirmed radiographic fusion.</div>
-            </div>
             <div className="evidence-card-new">
               <div className="evidence-tag-new">Workflow Analysis</div>
               <div className="evidence-stat-new">40%</div>

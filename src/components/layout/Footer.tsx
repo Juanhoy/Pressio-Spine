@@ -9,15 +9,16 @@ const FOOTER_LINKS = {
     { label: "In Development",     href: "/products#development" },
     { label: "Product Detail",     href: "/products" },
   ],
-  "Clinical Evidence": [
-    { label: "Clinical Summary",   href: "/clinical-evidence" },
-    { label: "Publications",       href: "/clinical-evidence?type=publication" },
-    { label: "White Papers",       href: "/clinical-evidence?type=white-paper" },
-  ],
+  // "Clinical Evidence" column hidden – preserved for future use:
+  // "Clinical Evidence": [
+  //   { label: "Clinical Summary",   href: "/clinical-evidence" },
+  //   { label: "Publications",       href: "/clinical-evidence?type=publication" },
+  //   { label: "White Papers",       href: "/clinical-evidence?type=white-paper" },
+  // ],
   Solutions: [
-    { label: "For Surgeons",       href: "/solutions#surgeons" },
-    { label: "For ASCs",           href: "/solutions#ascs" },
-    { label: "For Partners",       href: "/solutions#partners" },
+    { label: "For Surgeons",       href: "/solutions/surgeons" },
+    { label: "For ASCs",           href: "/solutions/ascs" },
+    { label: "For Partners",       href: "/solutions/partners" },
   ],
   Company: [
     { label: "Mission",            href: "/company#mission" },
@@ -32,16 +33,6 @@ export default function Footer() {
   if (pathname?.startsWith("/studio")) return null;
   return (
     <>
-      <div className="reg-bar-new" role="note">
-        <p>
-          <strong>Regulatory notice:</strong> Pipeline products shown on this site are In Development and have not received
-          FDA clearance. They are not available for commercial sale. Clinical data presented on this site is provided with
-          full study qualification, including design, sample size, and applicable limitations. For complete prescribing and
-          indication information, refer to the applicable Instructions for Use (IFU). Rx only. For use by trained healthcare
-          professionals only.
-        </p>
-      </div>
-
       <footer className="site-footer-new">
         <div className="footer-main-new">
           <div className="footer-brand-new">

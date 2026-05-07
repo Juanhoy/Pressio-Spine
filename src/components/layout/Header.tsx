@@ -5,11 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { label: "Products",          href: "/products" },
-  { label: "Clinical Evidence", href: "/clinical-evidence" },
-  { label: "Solutions",         href: "/solutions" },
-  { label: "Company",           href: "/company" },
-  { label: "News",              href: "/news" },
+  { label: "Products",  href: "/products" },
+  // { label: "Clinical Evidence", href: "/clinical-evidence" }, // Hidden – preserved for future use
+  { label: "Solutions", href: "/solutions" },
+  { label: "Company",   href: "/company" },
+  { label: "News",      href: "/news" },
 ];
 
 export default function Header() {

@@ -24,13 +24,12 @@ export default function ContactPage() {
     
     const data = {
       fields: [
-        { name: "firstname", value: (form.elements.namedItem("firstname") as HTMLInputElement).value },
-        { name: "lastname",  value: (form.elements.namedItem("lastname")  as HTMLInputElement).value },
-        { name: "email",     value: (form.elements.namedItem("email")     as HTMLInputElement).value },
-        { name: "company",   value: (form.elements.namedItem("company")   as HTMLInputElement).value },
-        { name: "role",      value: (form.elements.namedItem("role")      as HTMLInputElement).value },
-        { name: "phone",     value: phone || "" },
-        { name: "message",   value: (form.elements.namedItem("message")   as HTMLTextAreaElement).value },
+        { name: "firstname",    value: (form.elements.namedItem("firstname")    as HTMLInputElement).value },
+        { name: "lastname",     value: (form.elements.namedItem("lastname")     as HTMLInputElement).value },
+        { name: "email",        value: (form.elements.namedItem("email")        as HTMLInputElement).value },
+        { name: "inquiry_type", value: (form.elements.namedItem("inquiry_type") as HTMLInputElement).value },
+        { name: "phone",        value: phone || "" },
+        { name: "message",      value: (form.elements.namedItem("message")      as HTMLTextAreaElement).value },
       ],
       context: { 
         pageUri: window.location.href, 
@@ -89,10 +88,7 @@ export default function ContactPage() {
               <Field id="contact-email"   name="email"   label="Email"   type="email"   required />
             </div>
             <div style={{ marginBottom: "20px" }}>
-              <Field id="contact-company" name="company" label="Company / Hospital" />
-            </div>
-            <div style={{ marginBottom: "20px" }}>
-              <RoleSelect />
+              <InquiryTypeSelect />
             </div>
             <div style={{ marginBottom: "20px" }}>
               <label htmlFor="contact-phone" style={labelStyle}>Phone Number</label>
@@ -106,12 +102,11 @@ export default function ContactPage() {
               />
             </div>
             <div style={{ marginBottom: "24px" }}>
-              <label htmlFor="contact-message" style={labelStyle}>Message *</label>
+              <label htmlFor="contact-message" style={labelStyle}>Message <span style={{ opacity: 0.6, fontWeight: 400 }}>(optional)</span></label>
               <textarea
                 id="contact-message"
                 name="message"
                 rows={5}
-                required
                 placeholder="How can we help you?"
                 style={{ ...inputStyle, resize: "vertical" }}
               />
@@ -197,21 +192,22 @@ function Field({
   );
 }
 
-function RoleSelect() {
+function InquiryTypeSelect() {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("");
   const [hovered, setHovered] = useState<string | null>(null);
 
   const options = [
     "Surgeon",
-    "ASCs",
-    "Partner",
+    "Distributor / Rep",
+    "Investor",
+    "General / Media",
   ];
 
   return (
     <div style={{ position: "relative" }}>
-      <label htmlFor="contact-role" style={labelStyle}>Role</label>
-      <input type="hidden" id="contact-role" name="role" value={selected} />
+      <label htmlFor="contact-inquiry-type" style={labelStyle}>Inquiry Type</label>
+      <input type="hidden" id="contact-inquiry-type" name="inquiry_type" value={selected} />
       
       <div
         onClick={() => setIsOpen(!isOpen)}
@@ -225,7 +221,7 @@ function RoleSelect() {
         }}
       >
         <span style={{ color: selected ? "#000000" : "rgba(0, 0, 0, 0.6)" }}>
-          {selected || "Select your role…"}
+          {selected || "Select inquiry type…"}
         </span>
         <svg
           width="16"

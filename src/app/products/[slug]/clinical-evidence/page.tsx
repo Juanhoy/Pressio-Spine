@@ -46,7 +46,10 @@ export default async function ProductClinicalEvidencePage({
 
   if (!product) notFound();
 
-  const docs = product.clinicalEvidence ?? [];
+  const docs = (product.clinicalEvidence ?? []).filter((d) => 
+    !d.title?.includes("97.5") && 
+    !d.summary?.includes("97.5")
+  );
 
   return (
     <>

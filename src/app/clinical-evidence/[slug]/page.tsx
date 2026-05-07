@@ -22,7 +22,9 @@ export async function generateMetadata({
   const doc = await sanityFetch<ClinicalEvidence>(CLINICAL_EVIDENCE_ITEM_QUERY, {
     slug,
   }).catch(() => null);
-  if (!doc) return { title: "Document Not Found" };
+  if (!doc || doc.title.includes("97.5") || doc.summary?.includes("97.5")) {
+    return { title: "Clinical Evidence | Pressio Spine™" };
+  }
   return { title: doc.title, description: doc.summary };
 }
 
@@ -43,7 +45,7 @@ export default async function ClinicalEvidenceItemPage({
     slug,
   }).catch(() => null);
 
-  if (!doc) notFound();
+  if (!doc || doc.title.includes("97.5") || doc.summary?.includes("97.5")) notFound();
 
   const categoryLabel = CATEGORY_LABELS[doc.category] ?? doc.category;
 

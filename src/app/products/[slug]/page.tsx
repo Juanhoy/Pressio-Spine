@@ -42,13 +42,62 @@ export async function generateMetadata({
   };
 }
 
-// ── Feature icon SVG paths ─────────────────────────────────────────────────────
-const FEATURE_ICONS = [
-  "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4", // Shield Check (Simplified)
-  "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v4 M12 18v-4 M6 12h4 M18 12h-4", // Compression Arrows
-  "M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2 M12 11v6 M9 14h6", // Medical Case (Kits)
-  "M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5", // Layers (Versatile)
-];
+import { 
+  ShieldCheck, 
+  Activity, 
+  Package, 
+  Layers, 
+  Zap, 
+  Settings, 
+  Maximize, 
+  Microscope,
+  CheckCircle2,
+  Wrench
+} from "lucide-react";
+
+// ── Feature icon mapping ─────────────────────────────────────────────────────
+function FeatureIcon({ text, index }: { text: string; index: number }) {
+  const lower = text.toLowerCase();
+  
+  if (lower.includes("compression") || lower.includes("force") || lower.includes("nitinol")) 
+    return <Activity size={22} />;
+  
+  if (lower.includes("kit") || lower.includes("sterile") || lower.includes("delivery") || lower.includes("fedex")) 
+    return <Package size={22} />;
+  
+  if (lower.includes("size") || lower.includes("configur") || lower.includes("range")) 
+    return <Layers size={22} />;
+  
+  if (lower.includes("technique") || lower.includes("step") || lower.includes("surgeon")) 
+    return <Zap size={22} />;
+  
+  if (lower.includes("monolithic") || lower.includes("design") || lower.includes("hardware")) 
+    return <Settings size={22} />;
+  
+  if (lower.includes("fixation") || lower.includes("screw") || lower.includes("line")) 
+    return <TargetIcon size={22} />;
+
+  if (lower.includes("clinical") || lower.includes("evidence") || lower.includes("data")) 
+    return <Microscope size={22} />;
+
+  if (lower.includes("simplified") || lower.includes("easy")) 
+    return <CheckCircle2 size={22} />;
+
+  // Default icons based on index to prevent total repetition if no keywords match
+  const defaults = [<ShieldCheck key={0} size={22} />, <Wrench key={1} size={22} />, <Maximize key={2} size={22} />];
+  return defaults[index % defaults.length];
+}
+
+// Custom Target icon since Target might conflict or be simpler as a component
+function TargetIcon({ size }: { size: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  );
+}
 
 // ── Download tile helper ───────────────────────────────────────────────────────
 function DownloadTile({
@@ -177,9 +226,7 @@ export default async function ProductDetailPage({
               ).map((feat, i) => (
                 <li key={i} className="pd-feature-item">
                   <div className="pd-feature-icon" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d={FEATURE_ICONS[i % FEATURE_ICONS.length]} />
-                    </svg>
+                    <FeatureIcon text={feat} index={i} />
                   </div>
                   <div className="pd-feature-text">
                     <strong className="pd-feature-title">{feat}</strong>

@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { sanityFetch } from "@/lib/sanity/client";
 import { CLINICAL_EVIDENCE_QUERY } from "@/lib/sanity/queries";
 import type { ClinicalEvidence } from "@/types/sanity";
+
+// ── PAGE HIDDEN ──────────────────────────────────────────────────────────────
+// This page is temporarily hidden from public navigation.
+// The Sanity data & [slug] detail pages remain active for Product Detail pages.
+// To restore: remove the notFound() call below and re-add nav links in
+//   Header.tsx (line 9) and Footer.tsx (line 12).
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: "Clinical Evidence",
@@ -23,14 +31,18 @@ export default async function ClinicalEvidencePage({
 }: {
   searchParams: Promise<{ type?: string }>;
 }) {
+  notFound(); // PAGE HIDDEN — remove this line to restore the page
   const { type } = await searchParams;
 
   const allDocs = await sanityFetch<ClinicalEvidence[]>(CLINICAL_EVIDENCE_QUERY)
     .catch(() => [] as ClinicalEvidence[]);
 
-  const docs = type && type !== "all"
+  const docs = (type && type !== "all"
     ? allDocs.filter((d) => d.category === type)
-    : allDocs;
+    : allDocs).filter((d) => 
+      !d.title?.includes("97.5") && 
+      !d.summary?.includes("97.5")
+    );
 
   return (
     <>
