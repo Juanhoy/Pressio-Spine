@@ -107,18 +107,11 @@ export default async function HubPage({ params }: { params: Promise<{ slug: stri
             <div className={styles.valueGrid}>
               {VALUE_EQUATION_DATA.map((item) => (
                 <div key={item.stakeholder} className={styles.valueCard}>
-                  <div className={styles.valueCardImageWrap}>
-                    <Image 
-                      src={item.img} 
-                      alt={item.stakeholder} 
-                      fill 
-                      style={{ objectFit: "cover" }}
-                      unoptimized
-                    />
-                  </div>
                   <div className={styles.valueCardBody}>
+                    <div className={styles.stakeholderIconWrap}>
+                      <item.icon size={22} className={styles.stakeholderIcon} />
+                    </div>
                     <h3 className={styles.stakeholderTitle}>
-                      <item.icon size={18} className={styles.stakeholderIcon} />
                       {item.stakeholder}
                     </h3>
                     <p className={styles.propositionText}>{item.proposition}</p>

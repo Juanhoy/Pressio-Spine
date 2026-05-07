@@ -252,38 +252,45 @@
   border-color: #3B82F6;
 }
 
-.valueCardImageWrap {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  background: #F8FAFC;
-  border-bottom: 1px solid #F1F5F9;
-}
-
 .valueCardBody {
-  padding: 32px;
+  padding: 32px 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stakeholderIconWrap {
+  width: 44px;
+  height: 44px;
+  background: #EFF6FF;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: #3B82F6;
+  transition: all 0.2s ease;
+}
+
+.valueCard:hover .stakeholderIconWrap {
+  background: #3B82F6;
+  color: white;
 }
 
 .stakeholderTitle {
   font-family: var(--headline, system-ui, sans-serif);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #1A365D;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #F1F5F9;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  display: block;
 }
 
 .stakeholderIcon {
-  color: #3B82F6;
   flex-shrink: 0;
 }
 
