@@ -24,7 +24,7 @@ const VALUE_EQUATION_DATA = [
   {
     stakeholder: "Sales Channel",
     icon: Handshake,
-    img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777652069/Partners_l5xfjj.png", // Placeholder/fallback for now
+    img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1778115793/Sales_cjansu.jpg",
     proposition: "Zero Tray Capital. Higher commissions and reduced delivery complexity without consignment inventory."
   },
   {
