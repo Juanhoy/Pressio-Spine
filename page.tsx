@@ -102,12 +102,11 @@ export default async function HomePage() {
               title: "100+ Years Combined Experience",
               subtitle: "Clinical & Industry Expertise"
             }
-          ].map((item, i) => (
+          ].map((item: { icon: string; path2: string; title: string; subtitle: string; rect?: boolean; circle?: boolean }, i) => (
             <div className="proof-item-new" key={i}>
               <div className="proof-icon-new" aria-hidden="true">
                 <svg viewBox="0 0 24 24">
                   {item.rect && <rect x="2" y="4" width="20" height="16" rx="2" />}
-                  {item.circle && <circle cx="12" cy="12" r="10" />}
                   <path d={item.icon} />
                   {item.path2 && <path d={item.path2} />}
                 </svg>
