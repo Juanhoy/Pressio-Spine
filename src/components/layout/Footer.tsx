@@ -5,9 +5,7 @@ import { usePathname } from "next/navigation";
 
 const FOOTER_LINKS = {
   Products: [
-    { label: "Available Products", href: "/products#available" },
-    { label: "In Development",     href: "/products#development" },
-    { label: "Product Detail",     href: "/products" },
+    { label: "Available Products", href: "/products" },
   ],
   // "Clinical Evidence" column hidden – preserved for future use:
   // "Clinical Evidence": [
@@ -66,9 +64,7 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Pressio Spine. All rights reserved. Content subject to regulatory review.</span>
           <div className="footer-bottom-links-new">
             <Link href="/privacy-policy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
             <Link href="/cookie-policy">Cookies</Link>
-            <Link href="/sitemap.xml">Sitemap</Link>
           </div>
         </div>
       </footer>
