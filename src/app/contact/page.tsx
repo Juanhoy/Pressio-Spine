@@ -27,14 +27,14 @@ export default function ContactPage() {
         { name: "firstname",    value: (form.elements.namedItem("firstname")    as HTMLInputElement).value },
         { name: "lastname",     value: (form.elements.namedItem("lastname")     as HTMLInputElement).value },
         { name: "email",        value: (form.elements.namedItem("email")        as HTMLInputElement).value },
-        { name: "inquiry_type", value: (form.elements.namedItem("inquiry_type") as HTMLInputElement).value },
+        { name: "role",         value: (form.elements.namedItem("role")         as HTMLInputElement).value },
         { name: "phone",        value: phone || "" },
         { name: "message",      value: (form.elements.namedItem("message")      as HTMLTextAreaElement).value },
       ],
       context: { 
         pageUri: window.location.href, 
         pageName: document.title || "Contact",
-        hutk: hutk 
+        ...(hutk ? { hutk } : {})
       },
     };
 
@@ -206,8 +206,8 @@ function InquiryTypeSelect() {
 
   return (
     <div style={{ position: "relative" }}>
-      <label htmlFor="contact-inquiry-type" style={labelStyle}>Inquiry Type</label>
-      <input type="hidden" id="contact-inquiry-type" name="inquiry_type" value={selected} />
+      <label htmlFor="contact-role" style={labelStyle}>Inquiry Type</label>
+      <input type="hidden" id="contact-role" name="role" value={selected} />
       
       <div
         onClick={() => setIsOpen(!isOpen)}
