@@ -10,7 +10,7 @@ export const revalidate = 30;
 export const metadata: Metadata = {
   title: "Company",
   description:
-    "Meet the Pressio Spine™ team — our mission, leadership, board of directors, and scientific advisors.",
+    "Meet the Pressio Spine™ team — our mission, leadership, and board of directors.",
 };
 
 export default async function CompanyPageRoute() {
@@ -48,11 +48,13 @@ export default async function CompanyPageRoute() {
         dark
       />
 
+{/* 
       <TeamSection
         id="advisors"
         title="Scientific Advisory Board"
         members={data?.advisors}
       />
+      */}
 
       {data?.pressReleases && data.pressReleases.length > 0 && (
         <section className="section-new" style={{ background: "var(--neutral)" }} aria-labelledby="company-press-heading">

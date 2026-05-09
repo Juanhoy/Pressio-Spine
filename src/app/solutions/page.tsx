@@ -18,18 +18,21 @@ const AUDIENCES = [
     id: "surgeons", 
     key: "forSurgeons" as const, 
     label: "For Surgeons",  
+    description: "Harness shape-memory Nitinol for continuous, dynamic compression at the fusion site.",
     img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777652069/Surgeons_o3nldt.png" 
   },
   { 
     id: "ascs",     
     key: "forASCs"     as const, 
     label: "For ASCs",      
+    description: "Transform outpatient spine surgery with zero tray burden and rep-independent workflows.",
     img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777652068/ASCs_nmgfof.png" 
   },
   { 
     id: "partners", 
     key: "forPartners" as const, 
     label: "For Partners",  
+    description: "Partner to lead the commercial shift toward the outpatient era of spinal fixation.",
     img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/v1777652069/Partners_l5xfjj.png" 
   },
 ];
@@ -39,7 +42,7 @@ export default async function SolutionsPage() {
 
   return (
     <div className={styles.container}>
-      {AUDIENCES.map(({ id, key, label, img }) => {
+      {AUDIENCES.map(({ id, key, label, img, description }) => {
         const section = data?.[key];
         return (
           <div key={id} className={styles.column}>
@@ -49,7 +52,7 @@ export default async function SolutionsPage() {
             <div className={styles.content}>
               <h2 className={styles.title}>{label}</h2>
               <p className={styles.text}>
-                {section?.body ?? "Nitinol based implant systems that guarantee quality and consistency on your procedures"}
+                {section?.body ?? description}
               </p>
               
               <div className={styles.actions}>
