@@ -63,13 +63,6 @@ export default async function HomePage() {
                   <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
               </Link>
-              <Link
-                href="/clinical-evidence"
-                className="btn-ghost-new"
-                id="hero-cta-secondary"
-              >
-                View Clinical Evidence
-              </Link>
             </div>
           </div>
         </div>
@@ -133,22 +126,22 @@ export default async function HomePage() {
               {
                 title: "Clinical Mechanism",
                 desc: "Harnessing nitinol's superelastic properties for continuous dynamic compression, designed to support long-term fusion biology.",
-                href: "/clinical-evidence",
-                label: "Clinical Evidence",
+                href: "/solutions/surgeons",
+                label: "More Info",
                 img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651397/Precision-Engineering-Clinical-Mechanism_m8nein.jpg"
               },
               {
                 title: "Workflow Simplicity",
                 desc: "Reduced tray burden with single-use sterile instrumentation, specifically engineered for the ASC economic model.",
-                href: "/solutions",
-                label: "Solution Overview",
+                href: "/solutions/ascs",
+                label: "More Info",
                 img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651395/Precision-Engineering-WorkflowSimplicity_gatklc.jpg"
               },
               {
                 title: "Platform Potential",
                 desc: "Our cervical technology is the foundation for a broader nitinol-based spinal fixation platform currently in development.",
-                href: "/products",
-                label: "Roadmap",
+                href: "/solutions/partners",
+                label: "More Info",
                 img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651408/Precision-Engineering-Platform-Potential_vxhga9.jpg"
               }
             ].map((card, i) => (
