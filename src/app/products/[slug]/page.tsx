@@ -6,6 +6,7 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { PRODUCT_QUERY } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { Product } from "@/types/sanity";
+import { fixTerminology } from "@/lib/terminology";
 
 // Re-fetch from Sanity every 30 seconds
 export const revalidate = 30;
@@ -170,9 +171,16 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await sanityFetch<Product>(PRODUCT_QUERY, { slug }).catch(() => null);
+  const productData = await sanityFetch<Product>(PRODUCT_QUERY, { slug }).catch(() => null);
 
-  if (!product) notFound();
+  if (!productData) notFound();
+
+  // Apply terminology fixes to the fetched data
+  const product = {
+    ...productData,
+    description: productData.description ? fixTerminology(productData.description) : productData.description,
+    keyFeatures: productData.keyFeatures?.map(feat => fixTerminology(feat))
+  };
 
   return (
     <>

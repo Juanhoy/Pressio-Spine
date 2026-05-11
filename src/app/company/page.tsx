@@ -142,11 +142,11 @@ function TeamSection({
                     </div>
                   )}
                   <h3 style={{ color: dark ? "white" : undefined, fontSize: "17px", marginBottom: "4px" }}>{member.name}</h3>
-                  <p style={{ color: dark ? "var(--secondary)" : "var(--primary)", fontWeight: 700, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px" }}>
+                  <p style={{ color: dark ? "var(--secondary)" : "var(--primary)", fontWeight: 700, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "16px", flex: "none" }}>
                     {member.role}
                   </p>
                   {member.bio && (
-                    <p style={{ color: dark ? "rgba(255,255,255,0.6)" : undefined, fontSize: "13px", lineHeight: "1.6" }}>
+                    <p style={{ color: dark ? "rgba(255,255,255,0.6)" : undefined, fontSize: "13px", lineHeight: "1.6", flex: "none" }}>
                       {member.bio}
                     </p>
                   )}

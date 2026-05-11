@@ -149,7 +149,7 @@ export default async function HubPage({ params }: { params: Promise<{ slug: stri
   const heroSubtitle = slug === "ascs" 
     ? "The ASC-era question is different: which system delivers safe clinical outcomes with the lowest total cost and lowest operational friction per case?" 
     : slug === "surgeons"
-    ? "While static constructs lose force as the graft settles, Pressio’s shape-memory architecture provides the active, continuous compression required to support fusion biology throughout the healing process."
+    ? "While static constructs lose force as the graft settles, Pressio’s shape-memory architecture provides the active, continuous compression required to support fusion throughout the healing process."
     : slug === "partners"
     ? "The shift to ambulatory spine surgery is here. Pressio provides the only fixation platform purpose-built to eliminate the logistics and capital barriers of legacy hospital infrastructure."
     : (section?.body ?? "Nitinol based implant systems that guarantee quality and consistency on your procedures");

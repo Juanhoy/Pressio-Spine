@@ -50,7 +50,7 @@ export default async function HomePage() {
             <h1>{data?.heroHeadline ?? "Nitinol-Based Continuous Compression for Anterior Cervical Fusion"}</h1>
             <p className="hero-sub-new">
               {data?.heroSubheadline ??
-                "Pressio Spine is advancing a nitinol fixation platform designed to support fusion biology, simplify procedural workflow, and fit the ambulatory surgery center model across cervical and future spine applications."}
+                "Pressio Spine is advancing a nitinol fixation platform designed to support fusion, simplify procedural workflow, and fit the ambulatory surgery center model across cervical and future spine applications."}
             </p>
             <div className="hero-actions-new">
               <Link
@@ -125,7 +125,7 @@ export default async function HomePage() {
             {[
               {
                 title: "Clinical Mechanism",
-                desc: "Harnessing nitinol's superelastic properties for continuous dynamic compression, designed to support long-term fusion biology.",
+                desc: "Harnessing nitinol's superelastic properties for continuous dynamic compression, designed to support fusion.",
                 href: "/solutions/surgeons",
                 label: "More Info",
                 img: "https://res.cloudinary.com/dvm7fjhxs/image/upload/f_auto,q_auto/v1777651397/Precision-Engineering-Clinical-Mechanism_m8nein.jpg"
@@ -233,6 +233,24 @@ export default async function HomePage() {
                 <div className="net-impact-box-new">
                   <span className="impact-label-new">Net Impact</span>
                   <span className="impact-val-new">{item.impact}</span>
+                  {item.title === "Sterilization" && (
+                    <a 
+                      href="https://www.beckershospitalreview.com/or/single-use-sterile-surgical-instruments-save-time-increase-throughput-and-generate-substantial-cost-savings/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ 
+                        display: "block", 
+                        fontSize: "8.5px", 
+                        marginTop: "8px", 
+                        opacity: 0.5, 
+                        color: "inherit",
+                        textDecoration: "underline",
+                        lineHeight: 1.2
+                      }}
+                    >
+                      Source: Becker&apos;s Hospital Review
+                    </a>
+                  )}
                 </div>
               </div>
             ))}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity/image";
 import type { Product } from "@/types/sanity";
+import { fixTerminology } from "@/lib/terminology";
 
 interface ProductCardProps {
   product: Product;
@@ -37,7 +38,7 @@ export default function ProductCard({ product, index = 0, showDescription = fals
       <div className="pc-body">
         {/* Status badge */}
         <span className={`pc-badge ${product.status === "available" ? "pc-badge--cleared" : "pc-badge--dev"}`}>
-          {product.status === "available" ? "FDA 510(k) Cleared" : "In Development"}
+          {product.status === "available" ? "AVAILABLE NOW — FDA CLEARED & COMMERCIALLY DISTRIBUTED" : "In Development"}
         </span>
 
         {/* Product name */}
@@ -45,44 +46,48 @@ export default function ProductCard({ product, index = 0, showDescription = fals
 
         {/* Tagline / subtitle */}
         {product.tagline && (
-          <p className="pc-tagline">{product.tagline}</p>
+          <p className="pc-tagline">{fixTerminology(product.tagline)}</p>
         )}
 
         {/* Short description — only shown when caller opts in (e.g. Products page) */}
         {showDescription && product.description && (
-          <p className="pc-desc">{product.description}</p>
+          <p className="pc-desc">{fixTerminology(product.description)}</p>
         )}
 
         {/* Actions */}
-        <div className="pc-actions">
-          {product.brochure ? (
-            <a
-              href={product.brochure}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pc-btn pc-btn--outline"
-              onClick={(e) => e.stopPropagation()}
-            >
-              Download Brochure
-            </a>
-          ) : (
-            <span className="pc-btn pc-btn--outline pc-btn--disabled">
-              Download Brochure
-            </span>
-          )}
-          <Link href={`/products/${product.slug}`} className="pc-btn pc-btn--solid">
-            See Detail
-          </Link>
-        </div>
+        {product.status === "available" && (
+          <div className="pc-actions">
+            {product.brochure ? (
+              <a
+                href={product.brochure}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pc-btn pc-btn--outline"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Download Brochure
+              </a>
+            ) : (
+              <span className="pc-btn pc-btn--outline pc-btn--disabled">
+                Download Brochure
+              </span>
+            )}
+            <Link href={`/products/${product.slug}`} className="pc-btn pc-btn--solid">
+              See Detail
+            </Link>
+          </div>
+        )}
       </div>
 
-      {/* Make the whole card clickable via an invisible overlay link */}
-      <Link
-        href={`/products/${product.slug}`}
-        className="pc-card-overlay"
-        aria-label={`View ${product.name} details`}
-        tabIndex={-1}
-      />
+      {/* Make the whole card clickable via an invisible overlay link — ONLY for available products */}
+      {product.status === "available" && (
+        <Link
+          href={`/products/${product.slug}`}
+          className="pc-card-overlay"
+          aria-label={`View ${product.name} details`}
+          tabIndex={-1}
+        />
+      )}
     </article>
   );
 }

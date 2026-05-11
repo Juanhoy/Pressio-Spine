@@ -39,8 +39,7 @@ export default function Footer() {
             </Link>
             <p>Precision nitinol-based fixation for anterior cervical fusion. Built for the ASC era.</p>
             <div className="footer-fda-new">
-              CONTINUUM ACDF Nitinol Fixation System: FDA 510(k) Cleared for anterior cervical fixation. For full
-              indications, contraindications, and warnings, see product IFU.
+              CONTINUUM™ ACDF Nitinol Fixation System, Tidal™ ALIF, and Tidal™ Cervical: FDA 510(k) Cleared. For full indications, contraindications, and warnings, see product IFU.
             </div>
           </div>
 
