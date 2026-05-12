@@ -6,6 +6,8 @@ import type { HomePage } from "@/types/sanity";
 import { urlFor } from "@/lib/sanity/image";
 import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
+import { fixTerminology } from "@/lib/terminology";
+
 
 
 
@@ -47,10 +49,10 @@ export default async function HomePage() {
             <div className="hero-badge-new" aria-label="FDA 510(k) Cleared">
               {data?.heroBadge ?? "FDA 510(k) Cleared"}
             </div>
-            <h1>{data?.heroHeadline ?? "Nitinol-Based Continuous Compression for Anterior Cervical Fusion"}</h1>
+            <h1>{fixTerminology(data?.heroHeadline ?? "Nitinol-Based Continuous Compression for Anterior Cervical Dynamic Fusion")}</h1>
             <p className="hero-sub-new">
-              {data?.heroSubheadline ??
-                "Pressio Spine is advancing a nitinol fixation platform designed to support fusion, simplify procedural workflow, and fit the ambulatory surgery center model across cervical and future spine applications."}
+              {fixTerminology(data?.heroSubheadline ??
+                "Pressio Spine is advancing a nitinol fixation platform designed to support dynamic fusion, simplify procedural workflow, and fit the ambulatory surgery center model across cervical and future spine applications.")}
             </p>
             <div className="hero-actions-new">
               <Link
