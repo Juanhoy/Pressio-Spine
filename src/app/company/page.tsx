@@ -29,8 +29,33 @@ export default async function CompanyPageRoute() {
             </h1>
             <p className="hero-sub-new">
               {data?.mission ??
-                "Pressio Spine™ was founded to close the gap between surgical innovation and clinical outcomes — delivering implants that surgeons trust and patients deserve."}
+                "Pressio Spine was founded to bridge the gap between clinical potential and patient outcomes. We engineer fixation platforms built for the modern operative environment—combining the objective requirements of fusion biology with the logistical demands of the ambulatory setting. By providing surgeons with implants they can trust and a workflow designed for the way surgery is done today, we ensure that technological advancement translates directly to the patient level."}
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-new" style={{ background: "var(--white)" }} aria-labelledby="company-about-heading">
+        <div className="section-inner-new split-section-new">
+          <div className="split-section-content-new">
+            <span className="section-label-new">About Pressio</span>
+            <h2 id="company-about-heading" className="section-title-new" style={{ marginBottom: "24px" }}>
+              Fixation Built for the Ambulatory Era
+            </h2>
+            <p className="section-sub-new" style={{ maxWidth: "100%", color: "var(--gray-700)", marginBottom: "20px" }}>
+              Pressio Spine is a clinical fixation platform engineered for the shift to outpatient spine surgery. By pairing continuous-compression Nitinol implants with a sterile, single-use kit model, we deliver exactly what the ambulatory surgery center (ASC) demands: superior fusion biology, improved facility economics, and a workflow that removes operational friction.
+            </p>
+            <p className="section-sub-new" style={{ maxWidth: "100%", color: "var(--gray-700)" }}>
+              Headquartered in Memphis and led by orthopedic operators with over 100 years of combined clinical experience, Pressio is currently commercializing the CONTINUUM™ ACDF fixation system and the TIDAL Technology™ interbody platform. Beyond our cleared portfolio, we are advancing a broader pipeline of Nitinol-based fixation solutions designed to create a new standard for spinal stability and procedural efficiency.
+            </p>
+          </div>
+          <div className="split-section-img-new">
+            <Image
+              src="https://res.cloudinary.com/dvm7fjhxs/image/upload/v1778519520/Partners_l5xfjj.png"
+              alt="Partners"
+              fill
+              unoptimized
+            />
           </div>
         </div>
       </section>
